@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>{% block page_title %}
+
+        Stealth X | Official Site
+
+        {% endblock %}
+    </title>
+    <meta content="{{ meta_description }}" name="description">
+    <meta content="{{ meta_author }}" name="author">
+    <meta content="{{ og_image }}" property="og:image"/>
+
+    <meta content="{{ twitter_image }}" name="twitter:image"/>
+
+    <!-- Mobile viewport optimized: h5bp.com/viewport -->
+    <meta content="width=device-width" name="viewport">
+
+    <link href="{{asset_url_for('img/favicon.ico')}}" rel="icon"/>
+
+    <link as="style" href="{{ asset_url_for('main_css.css') }}" rel="preload">
+    <noscript>
+        <link href="{{ asset_url_for('main_css.css') }}" rel="stylesheet">
+    </noscript>
+
+    <link as="style" href="https://fonts.googleapis.com/css?family=Arvo|Oswald:200,300,400&display=swap" rel="preload">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css?family=Arvo|Oswald:200,300,400&display=swap" rel="stylesheet">
+    </noscript>
+
+    <script nonce="{{ csp_nonce() if config['ENV'] == 'production' }}">
+        let stylesheetObj = document.querySelectorAll("link[as='style']");
+        let stylesheetNum = stylesheetObj.length;
+
+        for (let i = 0; i < stylesheetNum; i++) {
+            stylesheetObj[i].onload = function() {
+                stylesheetObj[i].onload = null;
+                stylesheetObj[i].rel = 'stylesheet';
+                }
+            }
+
+    </script>
+
+    {% block css %}{% endblock %}
+
+</head>
+<body class="{% block body_class %}{% endblock %}">
+{% block body %}
+
+{% if not no_nav %}
+{% include "nav.html" %}
+{% endif %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class="relative z-10 bg-brand-red">
+    {% for message in messages %}
+    <li class="text-center font-oswald text-brand-white sm:text-white sm:text-lg">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<header>{% block header %}{% endblock %}</header>
+
+<main role="main">
+
+    {% block content %}{% endblock %}
+</main>
+
+
+{% include "footer.html" %}
+
+
+<!-- JavaScript at the bottom for fast page loading -->
+<script data-view="{{ data_view }}" id="main_js" nonce="{{ csp_nonce() if config['ENV'] == 'production' }}"
+        src="{{ asset_url_for('main_js.js') }}"></script>
+{% block js %}{% endblock %}
+<!-- end scripts -->
+{% endblock %}
+</body>
+</html>
+

@@ -1,0 +1,113 @@
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          blacklight: "#231F20",
+          blackdark: "#191616",
+          red: "#ec2726"
+        }
+      },
+      textColor: {
+        brand: {
+          white: "#DFDFDF",
+          red: "#ec2726"
+        }
+      },
+      fontSize: {
+        "11": "11px",
+        "12": "12px",
+        "5mxl": "3.5rem",
+        "8xl": "6rem",
+        "10xl": "8rem"
+      },
+      fontFamily: {
+        oswald: ["Oswald"],
+        arvo: ["Arvo"]
+      },
+      height:{
+      //px
+      //vh
+      "11vh": "11vh",
+      "60vh": "60vh",
+      "90vh": "90vh",
+
+      // vw
+      "6vw": "6vw",
+      "35vw": "35vw",
+      "40vw": "40vw",
+      "45vw": "45vw",
+      "50vw": "50vw",
+      "60vw": "60vw",
+      "62vw": "62vw",
+
+      // percentage
+      "60p": "60%",
+      "80p": "80%",
+      "90p": "90%",
+      "95p": "95%",
+      },
+      minHeight: {
+        50: "3.125rem",
+        400: "25rem",
+        675: "675px"
+      },
+      maxHeight: {
+      //px
+      100: "6.25rem",
+      125: "7.813rem",
+      },
+      width: {
+        "7vw": "7vw",
+        "8vw": "8vw",
+        "9vw": "9vw",
+        "50vw": "50vw",
+
+        "90p": "90%",
+      },
+      minWidth: {
+        65: "4.063rem",
+        75: "75px",
+        80: "80px",
+        275: "17.19rem",
+        320: "320px"
+      },
+      maxWidth: {
+        350: "350px",
+      },
+      placeholderColor: {
+        brand: {
+          white: "#DFDFDF"
+        }
+      },
+      opacity: {
+        35: "0.35",
+        60: "0.6",
+        90: "0.9",
+      },
+      spacing: {
+        "5vw": "5vw",
+      },
+      inset: {
+      "89vh": "89vh",
+      },
+      borderRadius: {
+        xl: "2.5rem"
+      },
+      borderColor: {
+        brand: {
+            red: "#ec2726"
+        }
+      },
+      borderWidth: {
+        3: "3px",
+      },
+      screens: {
+        "2xl": "2048px",
+        "3xl": "2560px"
+      },
+    }
+  },
+  variants: { width: ["responsive", "hover", "focus"] },
+  plugins: []
+};

@@ -1,0 +1,26 @@
+<div class="w-full">
+    <h1 class="text-center font-oswald font-thin tracking-widest antialiased text-brand-white text-3xl sm:text-5xl md:text-5mxl xl:text-7xl 2xl:text-8xl 3xl:text-10xl">
+        Our Story</h1>
+
+    <div class="w-full">
+        <div class="mx-auto relative mt-2 border sm:border-3 2xl:border-4 3xl:border-8 border-solid border-brand-red h-40vw md:h-35vw w-3/4">
+
+            <div class="w-full h-full" id="video-play-box">
+                <div class="flex items-center justify-center w-full h-full opacity-35"
+                >
+                    <div class="w-10/12 h-90p bg-center bg-cover" id="video-thumbnail"></div>
+                </div>
+
+                <img alt="Play"
+                     class="absolute top-0 left-0 right-0 bottom-0 m-auto w-3/12"
+                     src="{{ asset_url_for('svg/home/play-button.svg') }}"/>
+            </div>
+
+            <div class="hidden flex justify-center items-center w-full h-full" id="video-reel-box">
+                <div class="h-95p w-90p md:w-4/5 vimeo-center" id="vimeo-player"></div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
