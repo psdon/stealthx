@@ -70,10 +70,13 @@ module.exports = {
         75: "75px",
         80: "80px",
         275: "17.19rem",
+        280: "280px",
+        300: "300px",
         320: "320px"
       },
       maxWidth: {
         350: "350px",
+        450: "450px",
       },
       placeholderColor: {
         brand: {
@@ -92,7 +95,8 @@ module.exports = {
       "89vh": "89vh",
       },
       borderRadius: {
-        xl: "2.5rem"
+        xl: "2.5rem",
+        "2xl": "3.5rem",
       },
       borderColor: {
         brand: {

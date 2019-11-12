@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 
 {% block page_title %}
-Sign In | Stealth X
+Sign Up | Stealth X
 {% endblock %}
 
 {% block content %}
 <div class="">
     <div class="min-h-675 min-w-320 fixed z-0 top-0 w-full h-screen bg-brand-blacklight" id="particles"></div>
-    {% include("/auth/sign_in/sign_in_box.html") %}
+    {% include("/auth/sign_up/sign_up_box.html") %}
 </div>
 {% endblock %}
 
-{% set data_view = "signIn" %}
+{% set data_view = "signUp" %}

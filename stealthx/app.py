@@ -3,7 +3,7 @@
 import logging
 import sys
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_talisman import Talisman
 
 from stealthx import auth, commands, models, public, settings, account
@@ -16,11 +16,12 @@ from stealthx.extensions import (
     login_manager,
     migrate,
     webpack,
+    mail
 )
 
 csp = {
     "default-src": "'self'",
-    "script-src": "'strict-dynamic'",
+    "script-src": "'self'",
     "connect-src": ["'self'", "https://vimeo.com"],
     "img-src": "'self'",
     "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
@@ -63,10 +64,11 @@ def register_extensions(app):
     db.init_app(app)
     csrf_protect.init_app(app)
     login_manager.init_app(app)
-    debug_toolbar.init_app(app)
+    # debug_toolbar.init_app(app)
     migrate.init_app(app, db)
     webpack.init_app(app)
     htmlmin.init_app(app)
+    mail.init_app(app)
 
     if app.config["ENV"] == "production":
         Talisman(

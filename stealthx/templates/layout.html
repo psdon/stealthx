@@ -10,11 +10,11 @@
 
         {% endblock %}
     </title>
-    <meta content="{{ meta_description }}" name="description">
-    <meta content="{{ meta_author }}" name="author">
-    <meta content="{{ og_image }}" property="og:image"/>
+    <meta content="{% block meta_description %}{% endblock %}" name="description">
+    <meta content="{% block meta_author %}Paulo Sairel Don{% endblock %}" name="author">
+    <meta content="{% block og_image %}{{ asset_url_for('img/home/home-thumbnail.jpg') }}{% endblock %}" property="og:image"/>
 
-    <meta content="{{ twitter_image }}" name="twitter:image"/>
+    <meta content="{% block twitter_image %} {{ asset_url_for('img/home/home-thumbnail.jpg') }} {% endblock %}" name="twitter:image"/>
 
     <!-- Mobile viewport optimized: h5bp.com/viewport -->
     <meta content="width=device-width" name="viewport">
@@ -47,20 +47,20 @@
     {% block css %}{% endblock %}
 
 </head>
-<body class="{% block body_class %}{% endblock %}">
+<body class="{% block body_class %}min-w-320{% endblock %}">
 {% block body %}
 
 {% if not no_nav %}
 {% include "nav.html" %}
 {% endif %}
 
-{% with messages = get_flashed_messages() %}
+{% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
-<ul class="relative z-10 bg-brand-red">
-    {% for message in messages %}
-    <li class="text-center font-oswald text-brand-white sm:text-white sm:text-lg">{{ message }}</li>
+    {% for category, message in messages %}
+        <div class="relative z-10 flex justify-center {{ 'bg-brand-red' if category == 'warning' }}">
+            <span class="{{ 'bg-brand-blackdark mt-1 py-1 px-4 border sm:border-2 border-brand-red rounded-lg mx-2' if category == 'success' }} font-oswald text-brand-white sm:text-white sm:text-lg">{{ message }}</span>
+        </div>
     {% endfor %}
-</ul>
 {% endif %}
 {% endwith %}
 
@@ -76,6 +76,11 @@
 
 
 <!-- JavaScript at the bottom for fast page loading -->
+<script nonce="{{ csp_nonce() if config['ENV'] == 'production' }}">
+    {% if config['ENV'] == 'production' %}
+        window.NONCE = "{{ csp_nonce() }}";
+    {% endif %}
+</script>
 <script data-view="{{ data_view }}" id="main_js" nonce="{{ csp_nonce() if config['ENV'] == 'production' }}"
         src="{{ asset_url_for('main_js.js') }}"></script>
 {% block js %}{% endblock %}

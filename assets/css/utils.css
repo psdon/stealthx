@@ -1,3 +1,8 @@
 .trans-black {
   background-color: rgba(25, 22, 22, 0.8);
 }
+
+.truncate-90 {
+    @apply truncate;
+    width: calc(90%);
+}

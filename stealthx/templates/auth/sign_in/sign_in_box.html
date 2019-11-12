@@ -1,4 +1,4 @@
-<div class="flex justify-center mt-10">
+<div class="flex justify-center mt-10 ">
     <div class="z-1 relative w-4/5 min-w-280 max-w-350 border sm:border-2 border-brand-red trans-black rounded-xl">
         <div class="flex justify-center">
             <h1 class="py-8 font-oswald text-brand-white font-thin text-5xl">Sign In</h1>
@@ -46,13 +46,13 @@
 
         <div class="pt-8 mb-10 flex justify-center">
             <a
-                    class="text-brand-white text-11 no-underline sm:text-12 antialiased"
-                    href="/signup"
+                    class="font-arvo text-brand-white text-11 no-underline sm:text-12 antialiased"
+                    href="{{ url_for('auth.sign_up') }}"
             >Haven't signup yet?</a
             >
             <span class="text-brand-white px-2"></span>
             <a
-                    class="text-brand-white text-11 no-underline sm:text-12 antialiased"
+                    class="font-arvo text-brand-white text-11 no-underline sm:text-12 antialiased"
                     href="/recover"
             >Forgot your password?</a
             >

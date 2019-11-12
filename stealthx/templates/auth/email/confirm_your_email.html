@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+<div class="relative z-10 flex justify-center">
+    <div class="text-center bg-brand-blackdark mt-1 py-4 sm:px-4 border sm:border-2 border-brand-red rounded-lg mx-2 font-arvo text-xs text-brand-white sm:text-white sm:text-base">
+        <p class="">
+            We have sent you an email, please check your email and confirm.
+            <a href="{{ url_for('auth.resend_confirm_email') }}">
+                Click here to <span class="underline">resend email.</span>
+            </a>
+        </p>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block body_class %}
+min-w-320 bg-brand-blacklight
+{% endblock %}

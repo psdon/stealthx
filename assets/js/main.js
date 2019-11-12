@@ -3,6 +3,7 @@
  *
  * This file bundles all of your javascript together using webpack.
  */
+__webpack_nonce__ = window.NONCE
 
 function supportsDynamicImport() {
     try{

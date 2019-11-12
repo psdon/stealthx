@@ -7,46 +7,39 @@ from wtforms.validators import DataRequired, Email, EqualTo, Length
 from stealthx.models import User
 
 
-class LoginForm(FlaskForm):
+class SignInForm(FlaskForm):
     """Login form."""
 
     username_or_email = StringField("Username", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
 
 
-class RegisterForm(FlaskForm):
+class SignUpForm(FlaskForm):
     """Register form."""
 
     username = StringField(
-        "Username", validators=[DataRequired(), Length(min=3, max=25)]
+        "Username", validators=[DataRequired(message="Username is a required field"), Length(min=3, max=25)]
     )
     email = StringField(
-        "Email", validators=[DataRequired(), Email(), Length(min=6, max=40)]
+        "Email", validators=[DataRequired(message="Email is a required field"), Email(), Length(min=6, max=40)]
     )
     password = PasswordField(
-        "Password", validators=[DataRequired(), Length(min=6, max=40)]
+        "Password", validators=[DataRequired(message="Password is a required field"), Length(min=8)]
     )
     confirm = PasswordField(
         "Verify password",
-        [DataRequired(), EqualTo("password", message="Passwords must match")],
+        [DataRequired(message="Confirm password is a required field"),
+         EqualTo("password", message="Password does not match")],
     )
 
-    def __init__(self, *args, **kwargs):
-        """Create instance."""
-        super(RegisterForm, self).__init__(*args, **kwargs)
-        self.user = None
+    @staticmethod
+    def validate_username(_, field):
+        has_user = User.query.filter_by(username=field.data).first()
+        if has_user:
+            raise ValueError("This username is taken")
 
-    def validate(self):
-        """Validate the form."""
-        initial_validation = super(RegisterForm, self).validate()
-        if not initial_validation:
-            return False
-        user = User.query.filter_by(username=self.username.data).first()
-        if user:
-            self.username.errors.append("Username already registered")
-            return False
-        user = User.query.filter_by(email=self.email.data).first()
-        if user:
-            self.email.errors.append("Email already registered")
-            return False
-        return True
+    @staticmethod
+    def validate_email(_, field):
+        has_user = User.query.filter_by(email=field.data).first()
+        if has_user:
+            raise ValueError("This email is already registered")
