@@ -12,7 +12,6 @@ from stealthx.extensions import (
     csrf_protect,
     db,
     debug_toolbar,
-    flask_static_digest,
     htmlmin,
     login_manager,
     mail,
@@ -69,7 +68,6 @@ def register_extensions(app):
     migrate.init_app(app, db)
     htmlmin.init_app(app)
     mail.init_app(app)
-    flask_static_digest.init_app(app)
     manage_webpack.init_app(app)
 
     if app.config["ENV"] == "production":
