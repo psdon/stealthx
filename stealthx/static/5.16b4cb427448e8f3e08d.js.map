@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack:///./assets/js/module/empty.js"],"names":["home"],"mappings":";;;;;;;;;;AAAA;AAAA;AAAe,SAASA,IAAT,GAAgB,CAAE,C","file":"5.16b4cb427448e8f3e08d.js","sourcesContent":["export default function home() {}\n"],"sourceRoot":""}
