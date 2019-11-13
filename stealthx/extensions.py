@@ -10,6 +10,7 @@ from flask_webpack import Webpack
 from flask_wtf.csrf import CSRFProtect
 from flask_mail import Mail
 from passlib.context import CryptContext
+from flask_static_digest import FlaskStaticDigest
 
 csrf_protect = CSRFProtect()
 login_manager = LoginManager()
@@ -17,7 +18,7 @@ db = SQLAlchemy()
 migrate = Migrate(compare_type=True)
 cache = Cache()
 debug_toolbar = DebugToolbarExtension()
-webpack = Webpack()
 htmlmin = HTMLMIN()
 pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 mail = Mail()
+flask_static_digest = FlaskStaticDigest()

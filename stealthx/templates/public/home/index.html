@@ -23,7 +23,7 @@
 
 
 {% block css %}
-<style>#video-thumbnail{background-image: url("{{ asset_url_for("img/home/hack-video-bg.jpg") }}")}</style>
+<style>#video-thumbnail{background-image: url("{{ static_url_for('static', filename="img/home/hack-video-bg.jpg") }}")}</style>
 {% endblock %}
 
 {% set data_view = "home" %}

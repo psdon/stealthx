@@ -12,10 +12,10 @@ from stealthx.extensions import (
     csrf_protect,
     db,
     debug_toolbar,
+    flask_static_digest,
     htmlmin,
     login_manager,
     migrate,
-    webpack,
     mail
 )
 
@@ -64,11 +64,11 @@ def register_extensions(app):
     db.init_app(app)
     csrf_protect.init_app(app)
     login_manager.init_app(app)
-    # debug_toolbar.init_app(app)
+    debug_toolbar.init_app(app)
     migrate.init_app(app, db)
-    webpack.init_app(app)
     htmlmin.init_app(app)
     mail.init_app(app)
+    flask_static_digest.init_app(app)
 
     if app.config["ENV"] == "production":
         Talisman(

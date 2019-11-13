@@ -12,18 +12,18 @@
     </title>
     <meta content="{% block meta_description %}{% endblock %}" name="description">
     <meta content="{% block meta_author %}Paulo Sairel Don{% endblock %}" name="author">
-    <meta content="{% block og_image %}{{ asset_url_for('img/home/home-thumbnail.jpg') }}{% endblock %}" property="og:image"/>
+    <meta content="{% block og_image %}{{ static_url_for('static', filename='img/home/home-thumbnail.jpg') }}{% endblock %}" property="og:image"/>
 
-    <meta content="{% block twitter_image %} {{ asset_url_for('img/home/home-thumbnail.jpg') }} {% endblock %}" name="twitter:image"/>
+    <meta content="{% block twitter_image %} {{ static_url_for('static', filename='img/home/home-thumbnail.jpg') }} {% endblock %}" name="twitter:image"/>
 
     <!-- Mobile viewport optimized: h5bp.com/viewport -->
     <meta content="width=device-width" name="viewport">
 
-    <link href="{{asset_url_for('img/favicon.ico')}}" rel="icon"/>
+    <link href="{{static_url_for('static', filename='img/favicon.ico')}}" rel="icon"/>
 
-    <link as="style" href="{{ asset_url_for('main_css.css') }}" rel="preload">
+    <link as="style" href="{{ static_url_for('static', filename='pack/main_css.css') }}" rel="preload">
     <noscript>
-        <link href="{{ asset_url_for('main_css.css') }}" rel="stylesheet">
+        <link href="{{ static_url_for('static', filename='pack/main_css.css') }}" rel="stylesheet">
     </noscript>
 
     <link as="style" href="https://fonts.googleapis.com/css?family=Arvo|Oswald:200,300,400&display=swap" rel="preload">
@@ -82,7 +82,7 @@
     {% endif %}
 </script>
 <script data-view="{{ data_view }}" id="main_js" nonce="{{ csp_nonce() if config['ENV'] == 'production' }}"
-        src="{{ asset_url_for('main_js.js') }}"></script>
+        src="{{ static_url_for('static', filename='pack/main_js.js') }}"></script>
 {% block js %}{% endblock %}
 <!-- end scripts -->
 {% endblock %}
