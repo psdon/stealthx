@@ -20,6 +20,7 @@ class FlaskManageWebpack:
         app.config.setdefault("MANAGE_WEBPACK_ASSETS_URL", None)
         app.config.setdefault("MANAGE_WEBPACK_MANIFEST_URL", None)
 
+        self._get_webpack_assets(app)
         if app.config.get('DEBUG', False):
             app.before_request(self._reload_webpack_assets)
 
@@ -49,6 +50,6 @@ class FlaskManageWebpack:
 
         external_url = current_app.config['MANAGE_WEBPACK_ASSETS_URL']
         if external_url:
-            return f"{external_url}{self.webpack_assets.get(file, 'None')}"
+            return f"{external_url}{self.webpack_assets.get(file)}"
 
-        return self.webpack_assets.get(file, "None")
+        return self.webpack_assets.get(file)
