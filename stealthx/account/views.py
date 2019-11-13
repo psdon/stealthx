@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import login_required
-from stealthx.watcher import register_watchers
 
+from stealthx.watcher import register_watchers
 
 bp = Blueprint("account", __name__, url_prefix="/account")
 

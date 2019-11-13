@@ -1,5 +1,6 @@
-from .utils import check_user_status
 from flask import request
+
+from .utils import check_user_status
 
 
 def user_watcher():

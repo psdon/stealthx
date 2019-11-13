@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 """User views."""
-from flask import Blueprint, render_template, redirect, url_for, request, flash
-from flask_login import login_user, current_user, logout_user, login_required
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required, login_user, logout_user
 
-from stealthx.models import User
 from stealthx.extensions import db
-from .forms import SignInForm, SignUpForm, RecoverForm, ResetPasswordForm
-from .utils import send_confirm_email, send_recover_account_email
+from stealthx.models import User
+
+from .forms import RecoverForm, ResetPasswordForm, SignInForm, SignUpForm
 from .tokens import verify_email_token
+from .utils import send_confirm_email, send_recover_account_email
 
 bp = Blueprint("auth", __name__)
 
@@ -18,7 +19,7 @@ def sign_in():
     # TODO: Limit to 20 wrong password attempt per IP. Blocked that IP for a day. Also track by Cookies.
 
     if current_user.is_authenticated:
-        return redirect(url_for('account.dashboard'))
+        return redirect(url_for("account.dashboard"))
 
     form = SignInForm()
     context = {"form": form, "logo_only": True}
@@ -55,20 +56,22 @@ def sign_out():
 @bp.route("/sign-up", methods=["GET", "POST"])
 def sign_up():
     if current_user.is_authenticated:
-        return redirect(url_for('account.dashboard'))
+        return redirect(url_for("account.dashboard"))
 
     form = SignUpForm()
     if form.validate_on_submit():
-        new_user = User(username=form.username.data,
-                        email=form.email.data,
-                        password=form.password.data)
+        new_user = User(
+            username=form.username.data,
+            email=form.email.data,
+            password=form.password.data,
+        )
 
         db.session.add(new_user)
         try:
             db.session.commit()
             send_confirm_email(new_user.email)
             flash("You have signed up successfully. Please check your email", "success")
-            return redirect(url_for('auth.sign_in'))
+            return redirect(url_for("auth.sign_in"))
         except Exception:
             db.session.rollback()
             flash("Oops, an error occurred. Please try again later.", "warning")
@@ -95,31 +98,34 @@ def resend_confirm_email():
         return redirect(url_for("account.dashboard"))
 
     send_confirm_email(current_user.email)
-    return render_template("auth/email/confirm_your_email.html", )
+    return render_template("auth/email/confirm_your_email.html",)
 
 
-@bp.route('/confirm/<token>')
+@bp.route("/confirm/<token>")
 def confirm_email(token):
     if current_user.is_authenticated:
         logout_user()
 
     email = verify_email_token(token)
     if email is None:
-        flash('The confirmation link is invalid or has expired.', 'warning')
-        return redirect(url_for('auth.sign_in'))
+        flash("The confirmation link is invalid or has expired.", "warning")
+        return redirect(url_for("auth.sign_in"))
     user = User.query.filter_by(email=email).first_or_404()
     if user.email_confirmed:
-        flash('Email already confirmed. Please sign in.', 'success')
+        flash("Email already confirmed. Please sign in.", "success")
     else:
         user.email_confirmed = True
         try:
             db.session.commit()
-            flash('You have successfully confirmed your email. You can now sign in.', 'success')
+            flash(
+                "You have successfully confirmed your email. You can now sign in.",
+                "success",
+            )
         except Exception:
             db.session.rollback()
             flash("Oops, an error occurred. Please try again later.", "warning")
 
-    return redirect(url_for('auth.sign_in'))
+    return redirect(url_for("auth.sign_in"))
 
 
 @bp.route("/recover/", methods=["GET", "POST"])
@@ -150,8 +156,8 @@ def reset_password(token):
 
     email = verify_email_token(token)
     if email is None:
-        flash('The reset password link is invalid or has expired.', 'warning')
-        return redirect(url_for('auth.account_recover'))
+        flash("The reset password link is invalid or has expired.", "warning")
+        return redirect(url_for("auth.account_recover"))
 
     if current_user.is_authenticated:
         logout_user()
@@ -164,7 +170,10 @@ def reset_password(token):
             user.set_password(form.password.data)
             try:
                 db.session.commit()
-                flash("You have successfully reset your password. You can now sign in.", "success")
+                flash(
+                    "You have successfully reset your password. You can now sign in.",
+                    "success",
+                )
                 return redirect(url_for("auth.sign_in"))
             except Exception:
                 flash("Oops, an error occurred. Please try again later.", "warning")

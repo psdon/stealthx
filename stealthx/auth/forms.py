@@ -18,18 +18,33 @@ class SignUpForm(FlaskForm):
     """Register form."""
 
     username = StringField(
-        "Username", validators=[DataRequired(message="Username is a required field"), Length(min=3, max=25)]
+        "Username",
+        validators=[
+            DataRequired(message="Username is a required field"),
+            Length(min=3, max=25),
+        ],
     )
     email = StringField(
-        "Email", validators=[DataRequired(message="Email is a required field"), Email(), Length(min=6, max=40)]
+        "Email",
+        validators=[
+            DataRequired(message="Email is a required field"),
+            Email(),
+            Length(min=6, max=40),
+        ],
     )
     password = PasswordField(
-        "Password", validators=[DataRequired(message="Password is a required field"), Length(min=8)]
+        "Password",
+        validators=[
+            DataRequired(message="Password is a required field"),
+            Length(min=8),
+        ],
     )
     confirm = PasswordField(
         "Verify password",
-        [DataRequired(message="Confirm password is a required field"),
-         EqualTo("password", message="Password does not match")],
+        [
+            DataRequired(message="Confirm password is a required field"),
+            EqualTo("password", message="Password does not match"),
+        ],
     )
 
     @staticmethod
@@ -46,17 +61,24 @@ class SignUpForm(FlaskForm):
 
 
 class RecoverForm(FlaskForm):
-
-    email = StringField("Username", validators=[DataRequired(message="Email is a required field"), Email()])
+    email = StringField(
+        "Username",
+        validators=[DataRequired(message="Email is a required field"), Email()],
+    )
 
 
 class ResetPasswordForm(FlaskForm):
-
     password = PasswordField(
-        "Password", validators=[DataRequired(message="Password is a required field"), Length(min=8)]
+        "Password",
+        validators=[
+            DataRequired(message="Password is a required field"),
+            Length(min=8),
+        ],
     )
     confirm = PasswordField(
         "Verify password",
-        [DataRequired(message="Confirm password is a required field"),
-         EqualTo("password", message="Password does not match")],
+        [
+            DataRequired(message="Confirm password is a required field"),
+            EqualTo("password", message="Password does not match"),
+        ],
     )

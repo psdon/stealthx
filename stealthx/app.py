@@ -3,10 +3,10 @@
 import logging
 import sys
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from flask_talisman import Talisman
 
-from stealthx import auth, commands, models, public, settings, account
+from stealthx import account, auth, commands, models, public, settings
 from stealthx.extensions import (
     cache,
     csrf_protect,
@@ -15,8 +15,8 @@ from stealthx.extensions import (
     flask_static_digest,
     htmlmin,
     login_manager,
+    mail,
     migrate,
-    mail
 )
 
 csp = {

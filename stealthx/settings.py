@@ -26,17 +26,17 @@ class BaseConfig:
     FLASK_STATIC_DIGEST_GZIP_FILES = False
 
     # mail settings
-    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_SERVER = "smtp.gmail.com"
     MAIL_PORT = 465
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
 
     # gmail authentication
-    MAIL_USERNAME = 'connect.stealthx@gmail.com'
-    MAIL_PASSWORD = 'P9xEo2NW'
+    MAIL_USERNAME = "connect.stealthx@gmail.com"
+    MAIL_PASSWORD = "P9xEo2NW"
 
     # mail accounts
-    MAIL_DEFAULT_SENDER = 'connect.stealthx@gmail.com'
+    MAIL_DEFAULT_SENDER = "connect.stealthx@gmail.com"
 
 
 class DevConfig(BaseConfig):

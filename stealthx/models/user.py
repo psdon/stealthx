@@ -4,12 +4,7 @@ import datetime as dt
 
 from flask_login import UserMixin
 
-from stealthx.database import (
-    Column,
-    Model,
-    SurrogatePK,
-    db,
-)
+from stealthx.database import Column, Model, SurrogatePK, db
 from stealthx.extensions import login_manager, pwd_context
 
 
@@ -53,11 +48,13 @@ class User(UserMixin, SurrogatePK, Model):
     created_at = Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
     active = Column(db.Boolean(), default=True)
 
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=True)
+    role_id = db.Column(db.Integer, db.ForeignKey("roles.id"), nullable=True)
 
     def __init__(self, username, email, password=None, email_confirmed=None, **kwargs):
         """Create instance."""
-        db.Model.__init__(self, username=username, email=email, email_confirmed=None, **kwargs)
+        db.Model.__init__(
+            self, username=username, email=email, email_confirmed=None, **kwargs
+        )
         if password:
             self.set_password(password)
         else:

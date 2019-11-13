@@ -1,10 +1,18 @@
 import threading
 
-from flask import current_app, url_for, render_template, copy_current_request_context, redirect
+from flask import (
+    copy_current_request_context,
+    current_app,
+    redirect,
+    render_template,
+    url_for,
+)
 from flask_login import current_user
 from flask_mail import Message
-from .tokens import generate_email_token
+
 from stealthx.extensions import mail
+
+from .tokens import generate_email_token
 
 
 def create_email_message(to, subject, template):
@@ -12,7 +20,7 @@ def create_email_message(to, subject, template):
         subject,
         recipients=[to],
         html=template,
-        sender=current_app.config['MAIL_DEFAULT_SENDER'],
+        sender=current_app.config["MAIL_DEFAULT_SENDER"],
     )
     return msg
 
@@ -24,17 +32,17 @@ def send_async_email(to, subject, template):
     def send_message(message):
         mail.send(message)
 
-    sender = threading.Thread(name='mail_sender', target=send_message, args=(msg,))
+    sender = threading.Thread(name="mail_sender", target=send_message, args=(msg,))
     sender.start()
 
 
 def send_confirm_email(email):
     token = generate_email_token(email)
     # TODO: Create Different URL Route for 'First Registration' & Confirming Another Email
-    confirm_url = url_for('auth.confirm_email', token=token, _external=True)
+    confirm_url = url_for("auth.confirm_email", token=token, _external=True)
     # TODO: Create Good Looking Email Verification Template
-    template = render_template('auth/email/confirm_email.html', confirm_url=confirm_url)
-    send_async_email(to=email, subject='Confirm Email', template=template)
+    template = render_template("auth/email/confirm_email.html", confirm_url=confirm_url)
+    send_async_email(to=email, subject="Confirm Email", template=template)
 
     return 0
 
@@ -43,8 +51,8 @@ def send_recover_account_email(email):
     # TODO: Create Good Looking Account Recovery Template
     token = generate_email_token(email, expires_sec=300)
     reset_url = url_for("auth.reset_password", token=token, _external=True)
-    template = render_template('auth/email/recover_account.html', reset_url=reset_url)
-    send_async_email(to=email, subject='Account Recovery', template=template)
+    template = render_template("auth/email/recover_account.html", reset_url=reset_url)
+    send_async_email(to=email, subject="Account Recovery", template=template)
 
 
 def check_user_status():

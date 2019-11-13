@@ -8,7 +8,7 @@ import click
 from flask import cli
 
 from stealthx.extensions import db
-from stealthx.models import User, Role
+from stealthx.models import Role, User
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.join(HERE, os.pardir)
@@ -77,12 +77,7 @@ def init():
     role = Role(name="client")
     db.session.add(role)
 
-    user = User(
-        username="admin",
-        email="admin@mail.com",
-        password="admin",
-        role=role
-    )
+    user = User(username="admin", email="admin@mail.com", password="admin", role=role)
     db.session.add(user)
     db.session.commit()
     click.echo("created user admin")
