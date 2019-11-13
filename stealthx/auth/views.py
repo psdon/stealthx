@@ -5,8 +5,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 from stealthx.models import User
 from stealthx.extensions import db
-from .forms import SignInForm, SignUpForm
-from .utils import send_confirm_email
+from .forms import SignInForm, SignUpForm, RecoverForm, ResetPasswordForm
+from .utils import send_confirm_email, send_recover_account_email
 from .tokens import verify_email_token
 
 bp = Blueprint("auth", __name__)
@@ -14,6 +14,9 @@ bp = Blueprint("auth", __name__)
 
 @bp.route("/sign-in/", methods=["GET", "POST"])
 def sign_in():
+    # TODO: Limit 10 wrong password attempt per account, unless Reset Password Initiated
+    # TODO: Limit to 20 wrong password attempt per IP. Blocked that IP for a day. Also track by Cookies.
+
     if current_user.is_authenticated:
         return redirect(url_for('account.dashboard'))
 
@@ -111,9 +114,61 @@ def confirm_email(token):
         user.email_confirmed = True
         try:
             db.session.commit()
-            flash('You have successfully confirmed your email. You can now sign in!', 'success')
+            flash('You have successfully confirmed your email. You can now sign in.', 'success')
         except Exception:
             db.session.rollback()
             flash("Oops, an error occurred. Please try again later.", "warning")
 
     return redirect(url_for('auth.sign_in'))
+
+
+@bp.route("/recover/", methods=["GET", "POST"])
+def account_recover():
+    """
+    Find the user account and send recovery email
+    """
+    # TODO: Limit to 5 email sent in 6 hours.
+    if current_user.is_authenticated:
+        return redirect(url_for("account.dashboard"))
+
+    form = RecoverForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_recover_account_email(email=user.email)
+        flash("We have sent you an email. Please check your email inbox.", "success")
+    return render_template("auth/recover/find_account.html", form=form)
+
+
+@bp.route("/reset-password/<token>", methods=["GET", "POST"])
+def reset_password(token):
+    """
+    Reset Password page.
+    """
+    # TODO: One time reset link.
+    # TODO: Limit 3 reset password per day
+
+    email = verify_email_token(token)
+    if email is None:
+        flash('The reset password link is invalid or has expired.', 'warning')
+        return redirect(url_for('auth.account_recover'))
+
+    if current_user.is_authenticated:
+        logout_user()
+
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=email).first()
+
+        if user:
+            user.set_password(form.password.data)
+            try:
+                db.session.commit()
+                flash("You have successfully reset your password. You can now sign in.", "success")
+                return redirect(url_for("auth.sign_in"))
+            except Exception:
+                flash("Oops, an error occurred. Please try again later.", "warning")
+        else:
+            flash("Oops, an error occurred. Please try again later.", "warning")
+
+    return render_template("auth/recover/reset_password.html", form=form)

@@ -39,6 +39,14 @@ def send_confirm_email(email):
     return 0
 
 
+def send_recover_account_email(email):
+    # TODO: Create Good Looking Account Recovery Template
+    token = generate_email_token(email, expires_sec=300)
+    reset_url = url_for("auth.reset_password", token=token, _external=True)
+    template = render_template('auth/email/recover_account.html', reset_url=reset_url)
+    send_async_email(to=email, subject='Account Recovery', template=template)
+
+
 def check_user_status():
     if current_user.is_authenticated:
         # Email should be confirmed

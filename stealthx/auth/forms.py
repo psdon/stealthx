@@ -43,3 +43,20 @@ class SignUpForm(FlaskForm):
         has_user = User.query.filter_by(email=field.data).first()
         if has_user:
             raise ValueError("This email is already registered")
+
+
+class RecoverForm(FlaskForm):
+
+    email = StringField("Username", validators=[DataRequired(message="Email is a required field"), Email()])
+
+
+class ResetPasswordForm(FlaskForm):
+
+    password = PasswordField(
+        "Password", validators=[DataRequired(message="Password is a required field"), Length(min=8)]
+    )
+    confirm = PasswordField(
+        "Verify password",
+        [DataRequired(message="Confirm password is a required field"),
+         EqualTo("password", message="Password does not match")],
+    )
