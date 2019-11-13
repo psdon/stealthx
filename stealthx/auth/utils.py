@@ -11,6 +11,7 @@ from flask_login import current_user
 from flask_mail import Message
 
 from stealthx.extensions import mail
+
 from .tokens import generate_email_token
 
 

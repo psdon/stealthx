@@ -32,6 +32,7 @@ def home():
     }
     return render_template("public/home/index.html", **context)
 
+
 # @bp.route("/register/", methods=["GET", "POST"])
 # def register():
 #     """Register new user."""

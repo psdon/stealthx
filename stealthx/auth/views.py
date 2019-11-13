@@ -5,6 +5,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 
 from stealthx.extensions import db
 from stealthx.models import User
+
 from .forms import RecoverForm, ResetPasswordForm, SignInForm, SignUpForm
 from .tokens import verify_email_token
 from .utils import send_confirm_email, send_recover_account_email
@@ -97,7 +98,7 @@ def resend_confirm_email():
         return redirect(url_for("account.dashboard"))
 
     send_confirm_email(current_user.email)
-    return render_template("auth/email/confirm_your_email.html", )
+    return render_template("auth/email/confirm_your_email.html",)
 
 
 @bp.route("/confirm/<token>")

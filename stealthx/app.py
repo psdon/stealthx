@@ -15,8 +15,8 @@ from stealthx.extensions import (
     htmlmin,
     login_manager,
     mail,
+    manage_webpack,
     migrate,
-    manage_webpack
 )
 
 csp = {
