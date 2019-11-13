@@ -26,8 +26,9 @@ gevent==1.4.0
 gunicorn>=19.9.0
 supervisor==4.1.0
 
-# Flask Static
+# Flask Manage Webpack
 Flask-HTMLmin==1.5.2
+requests==2.22.0
 
 # Auth
 Flask-Login==0.4.1
