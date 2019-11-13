@@ -23,6 +23,7 @@ class BaseConfig:
     CACHE_TYPE = "simple"  # Can be "memcached", "redis", etc.
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = False
+    FLASK_STATIC_DIGEST_GZIP_FILES = False
 
     # mail settings
     MAIL_SERVER = 'smtp.gmail.com'
@@ -45,7 +46,6 @@ class DevConfig(BaseConfig):
 class ProdConfig(BaseConfig):
     MINIFY_HTML = True
     SEND_FILE_MAX_AGE_DEFAULT = 31556926
-    FLASK_STATIC_DIGEST_GZIP_FILES = True
 
     # To get the right value:
     # SHOW GLOBAL VARIABLES LIKE "wait_timeout";
