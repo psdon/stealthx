@@ -23,7 +23,6 @@ class BaseConfig:
     CACHE_TYPE = "simple"  # Can be "memcached", "redis", etc.
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = False
-    FLASK_STATIC_DIGEST_GZIP_FILES = False
 
     # mail settings
     MAIL_SERVER = "smtp.gmail.com"

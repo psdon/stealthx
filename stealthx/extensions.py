@@ -11,6 +11,8 @@ from flask_static_digest import FlaskStaticDigest
 from flask_wtf.csrf import CSRFProtect
 from passlib.context import CryptContext
 
+from .manage_webpack import FlaskManageWebpack
+
 csrf_protect = CSRFProtect()
 login_manager = LoginManager()
 db = SQLAlchemy()
@@ -21,3 +23,4 @@ htmlmin = HTMLMIN()
 pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 mail = Mail()
 flask_static_digest = FlaskStaticDigest()
+manage_webpack = FlaskManageWebpack()

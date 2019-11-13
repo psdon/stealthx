@@ -17,6 +17,7 @@ from stealthx.extensions import (
     login_manager,
     mail,
     migrate,
+    manage_webpack
 )
 
 csp = {
@@ -69,6 +70,7 @@ def register_extensions(app):
     htmlmin.init_app(app)
     mail.init_app(app)
     flask_static_digest.init_app(app)
+    manage_webpack.init_app(app)
 
     if app.config["ENV"] == "production":
         Talisman(

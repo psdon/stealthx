@@ -6,7 +6,7 @@
 
     <div class="flex-1 h-full flex items-center justify-center">
         <a class="h-full inline-flex items-center" href="{{ url_for('public.home') }}">
-            <img alt="Stealth X" class="h-80p" src="{{ static_url_for('static', filename='svg/global/logo.svg') }}">
+            <img alt="Stealth X" class="h-80p" src="{{ webpack_url_for('svg/global/logo.svg') }}">
         </a>
     </div>
 
@@ -15,19 +15,19 @@
     {% if not current_user.is_authenticated %}
     <div class="flex-1 h-full flex items-center justify-end">
         <a class="mr-5vw" href="{{ url_for('auth.sign_in') }}">
-            <img alt="Sign In" class="min-w-65 w-7vw" src="{{ static_url_for('static', filename='svg/global/sign-in.svg') }}">
+            <img alt="Sign In" class="min-w-65 w-7vw" src="{{ webpack_url_for('svg/global/sign-in.svg') }}">
         </a>
     </div>
     {% elif current_user.is_authenticated and with_dashboard %}
     <div class="flex-1 h-full flex items-center justify-end">
         <a class="mr-5vw" href="{{ url_for('account.dashboard') }}">
-            <img alt="Dashboard" class="min-w-80 w-9vw" src="{{ static_url_for('static', filename='svg/global/go-to-dashboard.svg') }}">
+            <img alt="Dashboard" class="min-w-80 w-9vw" src="{{ webpack_url_for('svg/global/go-to-dashboard.svg') }}">
         </a>
     </div>
     {% elif current_user.is_authenticated %}
     <div class="flex-1 h-full flex items-center justify-end">
         <a class="mr-5vw" href="{{ url_for('auth.sign_out') }}">
-            <img alt="Sign Out" class="min-w-75 w-8vw" src="{{ static_url_for('static', filename='svg/global/sign-out.svg') }}">
+            <img alt="Sign Out" class="min-w-75 w-8vw" src="{{ webpack_url_for('svg/global/sign-out.svg') }}">
         </a>
     </div>
     {% endif %}

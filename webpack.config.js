@@ -7,6 +7,8 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+let ManifestPlugin = require('webpack-manifest-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 // take debug mode from the environment
 const debug = (process.env.NODE_ENV !== 'production');
@@ -23,10 +25,10 @@ module.exports = {
     ],
   },
   output: {
-    path: path.join(__dirname, 'stealthx', 'static', "pack"),
-    publicPath: "/static/pack/",
-    filename: "[name].js",
-    chunkFilename: "[id].js"
+    path: path.join(__dirname, 'stealthx', 'static'),
+    publicPath: "/static/",
+    filename: "[name].[contentHash].js",
+    chunkFilename: "[id].[contentHash].js"
   },
   optimization: {
   minimizer: [
@@ -73,16 +75,29 @@ module.exports = {
       },
       { test: /\.html$/, loader: 'raw-loader' },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff' } },
-      {
-        test: /\.(ttf|eot|svg|png|jpe?g|gif|ico)(\?.*)?$/i,
-        loader: `file-loader?context=${rootAssetPath}&name=[path][name].[ext]`
-      },
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', query: { presets: ['@babel/preset-env'], cacheDirectory: true } },
     ],
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: '[name].css', }),
+    new MiniCssExtractPlugin({ filename: '[name].[contentHash].css', }),
 //    new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
+
+    new CopyPlugin([
+      {
+        from: `${rootAssetPath}`,
+        to: `${path.join(__dirname, 'stealthx', 'static')}/[path]/[name].[contentHash].[ext]`,
+        test: /\.(ttf|eot|svg|png|jpe?g|gif|ico)(\?.*)?$/i,
+        toType: 'template',
+      },
+    ]),
+    new ManifestPlugin(
+    {
+        map: (file) => {
+        // Remove hash in manifest key
+        file.name = file.name.replace(/(\.[a-f0-9]{32})(\..*)$/, '$2');
+        return file;
+        },
+    }),
   ].concat(debug ? [] : [
     // production webpack plugins go here
     new webpack.DefinePlugin({
