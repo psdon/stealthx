@@ -1,5 +1,5 @@
-import VimeoPlayer from '@vimeo/player';
-import { showHide, hasClass, addEventByElementId } from '../script';
+import VimeoPlayer from "@vimeo/player";
+import { showHide, hasClass, addEventByElementId } from "../script";
 import invokeParticles from '../module/invokeParticles';
 
 export default function home() {
@@ -13,17 +13,17 @@ export default function home() {
     });
 
     player.on('play', () => {
-      const _element = document.getElementById('video-play-box');
+      let _element = document.getElementById("video-play-box");
 
-      if (!hasClass(_element, 'hidden')) {
-        showHide('video-play-box');
-        showHide('video-reel-box');
+      if (!hasClass(_element, "hidden")) {
+        showHide("video-play-box");
+        showHide("video-reel-box");
       }
     });
 
     player.on('pause', () => {
-      showHide('video-reel-box');
-      showHide('video-play-box');
+      showHide("video-reel-box");
+      showHide("video-play-box");
     });
   }
 
@@ -33,8 +33,8 @@ export default function home() {
   let isRenderedPlayer = false;
 
   addEventByElementId('video-play-box', 'click', (e) => {
-    showHide('video-play-box');
-    showHide('video-reel-box');
+    showHide("video-play-box");
+    showHide("video-reel-box");
 
     if (isRenderedPlayer == false) {
       renderPlayer();

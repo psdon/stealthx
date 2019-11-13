@@ -10,14 +10,14 @@ __webpack_nonce__ = window.NONCE;
 
 function supportsDynamicImport() {
   try {
-    import('./module/empty.js');
+    import("./module/empty.js");
     return true;
   } catch {
     return false;
   }
 }
 
-const redirectTo = '/not-supported';
+const redirectTo = "/not-supported";
 const currentUrl = window.location.pathname;
 
 if (currentUrl !== redirectTo) {
@@ -26,17 +26,20 @@ if (currentUrl !== redirectTo) {
   }
 }
 
-import('fg-loadcss/src/cssrelpreload.js').catch(() => {});
+import("fg-loadcss/src/cssrelpreload.js").catch(() => {});
 
-const view = document.getElementById('main_js').getAttribute('data-view');
+const view = document.getElementById("main_js").getAttribute("data-view");
 const dataRoutes = [`${view}`];
 
-const loadModules = (modules) => Promise.all(
-    modules.map((module) => import(`./view/${module}.js`)
-        .then((obj) => {
+const loadModules = modules =>
+  Promise.all(
+    modules.map(module =>
+      import(`./view/${module}.js`)
+        .then(obj => {
           obj.default();
         })
-        .catch(() => {}),),
+        .catch(() => {})
+    )
   );
 
 loadModules(dataRoutes);

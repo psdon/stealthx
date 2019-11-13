@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./assets/js/module/empty.js"],"names":["home","console","log"],"mappings":";;;;;;;;;;AAAA;AAAA;AAAe,SAASA,IAAT,GAAe;AAC9BC,SAAO,CAACC,GAAR,CAAY,OAAZ;AACC,C","file":"5.098b1b9b6eb093d77e48.js","sourcesContent":["export default function home(){\nconsole.log(\"Empty\")\n}"],"sourceRoot":""}
