@@ -10,7 +10,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from passlib.context import CryptContext
 
-from .manage_webpack import FlaskManageWebpack
+from flask_manage_webpack import FlaskManageWebpack
 
 csrf_protect = CSRFProtect()
 login_manager = LoginManager()
