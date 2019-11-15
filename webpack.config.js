@@ -89,7 +89,7 @@ module.exports = {
         test: /\.(ttf|eot|svg|png|jpe?g|gif|ico)(\?.*)?$/i,
         toType: 'template',
       },
-    ]),
+    ], {copyUnmodified: true}),
     new ManifestPlugin(
     {
         map: (file) => {
