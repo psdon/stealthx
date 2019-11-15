@@ -29,7 +29,7 @@ supervisor==4.1.0
 # Flask Manage Webpack
 Flask-HTMLmin==1.5.2
 requests==2.22.0
-Flask-Manage-Webpack==1.0.1
+Flask-Manage-Webpack==1.2.0
 
 # Auth
 Flask-Login==0.4.1
