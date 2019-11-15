@@ -27,8 +27,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'stealthx', 'static'),
     publicPath: "/static/",
-    filename: "[name].[contentHash].js",
-    chunkFilename: "[id].[contentHash].js"
+    filename: "js/[name].[contentHash].js",
+    chunkFilename: "js/[name].[contentHash].chunk.js"
   },
   optimization: {
   minimizer: [
@@ -79,7 +79,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: '[name].[contentHash].css', }),
+    new MiniCssExtractPlugin({ filename: 'css/[name].[contentHash].css', }),
 //    new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
 
     new CopyPlugin([
