@@ -8,6 +8,15 @@
 // eslint-disable-next-line no-undef
 __webpack_nonce__ = window.NONCE;
 
+
+// load static files
+require.context(
+  '../', // context folder
+  true, // include subdirectories
+  /\.(ttf|eot|svg|png|jpe?g|gif|ico)(\?.*)?$/i, // RegExp
+);
+
+
 function supportsDynamicImport() {
   try {
     import('./module/empty.js');
