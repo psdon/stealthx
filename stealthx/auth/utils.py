@@ -41,7 +41,7 @@ def send_confirm_email(email):
     # TODO: Create Different URL Route for 'First Registration' & Confirming Another Email
     confirm_url = url_for("auth.confirm_email", token=token, _external=True)
     # TODO: Create Good Looking Email Verification Template
-    template = render_template("auth/email/confirm_email.html", confirm_url=confirm_url)
+    template = render_template("auth/email/confirm_email.html", confirm_url=confirm_url, user_email=email)
     send_async_email(to=email, subject="Confirm Email", template=template)
 
     return 0
@@ -49,7 +49,7 @@ def send_confirm_email(email):
 
 def send_recover_account_email(email):
     # TODO: Create Good Looking Account Recovery Template
-    token = generate_email_token(email, expires_sec=300)
+    token = generate_email_token(email, expires_sec=600)
     reset_url = url_for("auth.reset_password", token=token, _external=True)
     template = render_template("auth/email/recover_account.html", reset_url=reset_url)
     send_async_email(to=email, subject="Account Recovery", template=template)
