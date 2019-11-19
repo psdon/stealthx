@@ -77,7 +77,11 @@ def init():
     role = Role(name="client")
     db.session.add(role)
 
+    admin_role = Role(name="admin")
+    db.session.add(admin_role)
+
     user = User(username="admin", email="admin@mail.com", password="admin", role=role)
+    user.set_email_confirmed()
     db.session.add(user)
     db.session.commit()
     click.echo("created user admin")

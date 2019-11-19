@@ -15,7 +15,7 @@ from .factories import UserFactory
 @pytest.fixture
 def app():
     """Create application for the tests."""
-    _app = create_app("tests.settings")
+    _app = create_app(testing=True)
     _app.logger.setLevel(logging.CRITICAL)
     ctx = _app.test_request_context()
     ctx.push()
@@ -26,15 +26,19 @@ def app():
 
 
 @pytest.fixture
-def testapp(app):
+def client(app):
     """Create Webtest app."""
+    return app.test_client()
+
+
+@pytest.fixture
+def web_client(app):
     return TestApp(app)
 
 
 @pytest.fixture
 def db(app):
     """Create database for the tests."""
-    _db.app = app
     with app.app_context():
         _db.create_all()
 
@@ -48,6 +52,6 @@ def db(app):
 @pytest.fixture
 def user(db):
     """Create user for the tests."""
-    user = UserFactory(password="myprecious")
+    user = UserFactory(password="a-long-password-987")
     db.session.commit()
     return user

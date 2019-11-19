@@ -42,6 +42,29 @@ class DevConfig(BaseConfig):
     MINIFY_HTML = False
 
 
+class TestingConfig(BaseConfig):
+    MINIFY_HTML = False
+    TESTING = True
+    DEBUG_TB_ENABLED = False
+
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+    SECRET_KEY = "testing"
+    PASSWORD_SALT_KEY = "testing"
+
+    # mail settings
+    MAIL_SERVER = "127.0.0.1"
+    MAIL_PORT = 0
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
+
+    # gmail authentication
+    MAIL_USERNAME = None
+    MAIL_PASSWORD = None
+
+    # mail accounts
+    MAIL_DEFAULT_SENDER = "connect.stealthx@gmail.com"
+
+
 class ProdConfig(BaseConfig):
     MINIFY_HTML = True
     SEND_FILE_MAX_AGE_DEFAULT = 31556926

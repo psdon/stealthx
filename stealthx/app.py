@@ -33,14 +33,17 @@ csp = {
 }
 
 
-def create_app(config_object=None):
+def create_app(testing=False, config_object=None):
     """Create application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
 
+    :param testing: Testing config object.
     :param config_object: The configuration object to use.
     """
     app = Flask(__name__.split(".")[0])
 
-    if config_object:
+    if testing:
+        app.config.from_object(settings.TestingConfig)
+    elif config_object:
         app.config.from_object(config_object)
     elif settings.BaseConfig.ENV == "development":
         app.config.from_object(settings.DevConfig)

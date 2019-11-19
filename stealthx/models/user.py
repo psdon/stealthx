@@ -19,11 +19,10 @@ login_manager.login_message = "Please sign in to access this page"
 login_manager.login_message_category = "warning"
 
 
-class Role(db.Model):
+class Role(Model, SurrogatePK):
     """A role for a user."""
 
     __tablename__ = "roles"
-    id = db.Column(db.Integer, primary_key=True)
     name = Column(db.String(80), unique=True, nullable=False)
     users = db.relationship("User", backref="role")
 
@@ -50,22 +49,27 @@ class User(UserMixin, SurrogatePK, Model):
 
     role_id = db.Column(db.Integer, db.ForeignKey("roles.id"), nullable=True)
 
-    def __init__(self, username, email, password=None, email_confirmed=None, **kwargs):
+    def __init__(self, username, email, password=None, **kwargs):
         """Create instance."""
         db.Model.__init__(
-            self, username=username, email=email, email_confirmed=None, **kwargs
+            self, username=username, email=email, role_id=None, **kwargs
         )
+
+        # Assumed client role id is always 1
+        self.role_id = 1  # Role.query.filter_by(name="client").first().id
+
         if password:
             self.set_password(password)
         else:
             self.password = None
 
-        if email_confirmed:
-            self.email_confirmed_at = dt.datetime.utcnow()
-
     def set_password(self, password):
         """Set password."""
         self.password = pwd_context.hash(password)
+
+    def set_email_confirmed(self):
+        self.email_confirmed = True
+        self.email_confirmed_at = dt.datetime.utcnow()
 
     def check_password(self, value):
         """Check password."""

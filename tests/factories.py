@@ -4,7 +4,7 @@ from factory import PostGenerationMethodCall, Sequence
 from factory.alchemy import SQLAlchemyModelFactory
 
 from stealthx.database import db
-from stealthx.models.models import User
+from stealthx.models import User
 
 
 class BaseFactory(SQLAlchemyModelFactory):
@@ -22,8 +22,9 @@ class UserFactory(BaseFactory):
 
     username = Sequence(lambda n: "user{0}".format(n))
     email = Sequence(lambda n: "user{0}@example.com".format(n))
-    password = PostGenerationMethodCall("set_password", "example")
+    password = PostGenerationMethodCall("set_password", "a-long-password-987")
     active = True
+    email_confirmed = True
 
     class Meta:
         """Factory configuration."""

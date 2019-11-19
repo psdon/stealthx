@@ -114,7 +114,7 @@ def confirm_email(token):
     if user.email_confirmed:
         flash("Email already confirmed. Please sign in.", "success")
     else:
-        user.email_confirmed = True
+        user.set_email_confirmed()
         try:
             db.session.commit()
             flash(

@@ -28,12 +28,17 @@ def create_email_message(to, subject, template):
 def send_async_email(to, subject, template):
     msg = create_email_message(to, subject, template)
 
-    @copy_current_request_context
-    def send_message(message):
-        mail.send(message)
+    if not current_app.config.get("TESTING"):
+        @copy_current_request_context
+        def send_message(message):
+            mail.send(message)
 
-    sender = threading.Thread(name="mail_sender", target=send_message, args=(msg,))
-    sender.start()
+        sender = threading.Thread(name="mail_sender", target=send_message, args=(msg,))
+        sender.start()
+    else:
+        with mail.record_messages() as outbox:
+            mail.send(msg)
+            return outbox
 
 
 def send_confirm_email(email):
@@ -42,9 +47,7 @@ def send_confirm_email(email):
     confirm_url = url_for("auth.confirm_email", token=token, _external=True)
     # TODO: Create Good Looking Email Verification Template
     template = render_template("auth/email/confirm_email.html", confirm_url=confirm_url, user_email=email)
-    send_async_email(to=email, subject="Confirm Email", template=template)
-
-    return 0
+    return send_async_email(to=email, subject="Confirm Email", template=template)
 
 
 def send_recover_account_email(email):
@@ -52,7 +55,7 @@ def send_recover_account_email(email):
     token = generate_email_token(email, expires_sec=600)
     reset_url = url_for("auth.reset_password", token=token, _external=True)
     template = render_template("auth/email/recover_account.html", reset_url=reset_url)
-    send_async_email(to=email, subject="Account Recovery", template=template)
+    return send_async_email(to=email, subject="Account Recovery", template=template)
 
 
 def check_user_status():
