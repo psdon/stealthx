@@ -10,7 +10,7 @@
         </div>
 
         <form method="POST" novalidate>
-            {{ form.hidden_tag() }}
+            {{ form.csrf_token() }}
 
             <div class="flex flex-col justify-center">
                 {% if form.email.errors %}
