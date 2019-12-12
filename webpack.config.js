@@ -6,7 +6,7 @@ const webpack = require('webpack');
  */
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const IgnoreEmitPlugin = require('ignore-emit-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -34,15 +34,9 @@ module.exports = {
   },
   optimization: {
   minimizer: [
-   new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
+    new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
         sourceMap: true,
-        uglifyOptions: {
-          output: {
-            comments: false
-          }
-        }
     }),
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.css$/g,

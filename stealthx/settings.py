@@ -22,7 +22,7 @@ class BaseConfig:
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     CACHE_TYPE = "simple"  # Can be "memcached", "redis", etc.
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    WTF_CSRF_ENABLED = False
+
 
     # mail settings
     MAIL_SERVER = "smtp.gmail.com"
@@ -43,6 +43,7 @@ class DevConfig(BaseConfig):
 
 
 class TestingConfig(BaseConfig):
+    WTF_CSRF_ENABLED = False
     MINIFY_HTML = False
     TESTING = True
     DEBUG_TB_ENABLED = False
