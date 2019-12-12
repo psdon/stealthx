@@ -14,7 +14,7 @@
     "url": "git+https://github.com/psdon/Flask-Manage-Webpack.git"
   },
   "author": "Paulo Sairel Don",
-  "license": "MIT",
+  "license": "Paulo Sairel Don © 2019",
   "engines": {
     "node": ">=12"
   },
