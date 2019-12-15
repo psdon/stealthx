@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+Pricing | Stealth X
+{% endblock %}
+
+{% block content %}
+<div class="min-h-675 min-w-320 fixed z-0 top-0 w-full h-screen bg-brand-blacklight" id="particles"></div>
+<div class="flex justify-center mt-10">
+    <div class="z-1 relative w-4/5 min-w-280 max-w-350 border sm:border-2 border-brand-red trans-black rounded-xl">
+
+        <div class="flex justify-center">
+            <h1 class="py-8 font-oswald text-brand-white font-light text-5xl">Starter Pack</h1>
+        </div>
+
+        <div class="flex justify-center">
+            <ul class="font-arvo text-brand-white text-xl">
+                <li>- ₱300 per month</li>
+                <li>- 1 Lesson per Day</li>
+                <li>- 1 Spoiler per Day</li>
+            </ul>
+        </div>
+
+        <a href="#">
+             <div class="mt-12 mb-8 flex align-center justify-center w-full">
+                <button
+                        class="transition-w-1s w-3/5 h-20 text-brand-white font-oswald font-light text-3xl border sm:border-2 rounded-xl border-brand-red focus:outline-none"
+                >
+                    Proceed
+                </button>
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock content%}
+
+{% set data_view = "particlesOnly" %}

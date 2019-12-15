@@ -6,12 +6,18 @@ from stealthx.watcher import register_watchers
 bp = Blueprint("account", __name__, url_prefix="/account")
 
 
-@bp.route("/dashboard")
+@bp.after_request
+def _(response):
+    return register_watchers(response)
+
+
+@bp.route("/dashboard/")
 @login_required
 def dashboard():
     return render_template("account/dashboard/index.html")
 
 
-@bp.after_request
-def _(response):
-    return register_watchers(response)
+@bp.route("/pricing/")
+@login_required
+def pricing():
+    return render_template("account/pricing/index.html")
