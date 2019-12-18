@@ -49,6 +49,8 @@ class User(UserMixin, SurrogatePK, Model):
 
     role_id = db.Column(db.Integer, db.ForeignKey("roles.id"), nullable=True)
 
+    subscription = db.relationship('SubscriptionPlan', backref='user', cascade='all, delete-orphan')
+
     def __init__(self, username, email, password=None, **kwargs):
         """Create instance."""
         db.Model.__init__(
