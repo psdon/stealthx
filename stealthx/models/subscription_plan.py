@@ -9,3 +9,8 @@ class SubscriptionPlan(db.Model):
     expiration = db.Column(db.DateTime, nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete='CASCADE'), nullable=False)
+
+    paymongo_transaction = db.relationship('PaymongoPaymentTransactions',
+                                           backref='SubscriptionPlan',
+                                           cascade='all, delete-orphan',
+                                           uselist=False)
