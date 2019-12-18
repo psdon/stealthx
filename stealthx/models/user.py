@@ -43,7 +43,7 @@ class User(UserMixin, SurrogatePK, Model):
     email = Column(db.String(45), unique=True, nullable=False)
     email_confirmed = Column(db.Boolean, default=False, nullable=False)
     email_confirmed_at = Column(db.DateTime, nullable=True)
-    password = Column(db.String(128), nullable=True)
+    password = Column(db.String(128), nullable=False)
     created_at = Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
     active = Column(db.Boolean(), default=True)
 

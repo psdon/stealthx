@@ -37,6 +37,9 @@ class BaseConfig:
     # mail accounts
     MAIL_DEFAULT_SENDER = "connect.stealthx@gmail.com"
 
+    PAYMONGO_PUBLIC_KEY = env.str("PAYMONGO_PUBLIC_KEY")
+    PAYMONGO_SECRET_KEY = env.str("PAYMONGO_SECRET_KEY")
+
 
 class DevConfig(BaseConfig):
     MINIFY_HTML = False
