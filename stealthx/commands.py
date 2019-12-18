@@ -8,7 +8,10 @@ import click
 from flask import cli
 
 from stealthx.extensions import db
-from stealthx.models import Role, User
+from stealthx.models import Role, User, SubscriptionPlan
+from stealthx.constants import SubscriptionTypes
+from datetime import datetime as dt
+from dateutil.relativedelta import relativedelta
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.join(HERE, os.pardir)
@@ -82,6 +85,12 @@ def init():
 
     user = User(username="admin", email="admin@mail.com", password="admin", role=role)
     user.set_email_confirmed()
+
+    subscription_types = SubscriptionTypes()
+    expiration = dt.utcnow() + relativedelta(years=1)
+    user_subscription = SubscriptionPlan(user=user, type=subscription_types.FREE, expiration=expiration)
+
+    db.session.add(user_subscription)
     db.session.add(user)
     db.session.commit()
     click.echo("created user admin")
