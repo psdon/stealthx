@@ -47,5 +47,5 @@ Flask-DebugToolbar==0.10.1
 environs==7.1.0
 
 # Etc.
-python-dateutil==2.8.0
+python-dateutil==2.8.1
 
