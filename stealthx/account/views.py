@@ -15,18 +15,17 @@ bp = Blueprint("account", __name__, url_prefix="/account")
 
 
 @bp.after_request
+@login_required
 def _(response):
     return register_watchers(response)
 
 
 @bp.route("/dashboard/")
-@login_required
 def dashboard():
     return render_template("account/dashboard/index.html")
 
 
 @bp.route("/pricing/")
-@login_required
 def pricing():
     return render_template("account/pricing/index.html")
 
@@ -42,7 +41,6 @@ def checkout_type():
 
 
 @bp.route("/checkout/card/", methods=["GET", "POST"])
-@login_required
 def checkout_card():
     subscription_obj = SubscriptionPlan.query.filter_by(user_id=current_user.id)\
         .order_by(SubscriptionPlan.id.desc()).first()
