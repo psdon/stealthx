@@ -14,8 +14,13 @@ from base64 import b64encode
 bp = Blueprint("account", __name__, url_prefix="/account")
 
 
-@bp.after_request
+@bp.before_request
 @login_required
+def _before():
+    pass
+
+
+@bp.after_request
 def _(response):
     return register_watchers(response)
 
