@@ -2,7 +2,7 @@ from ..extensions import db
 from datetime import datetime as dt
 
 
-class PaymongoPaymentTransactions(db.Model):
+class PaymongoPaymentTransaction(db.Model):
     __tablename__ = "paymongo_payment_transactions"
 
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -19,7 +19,7 @@ class PaymongoPaymentTransactions(db.Model):
                         nullable=False)
 
     def __init__(self, **kwargs):
-        super(PaymongoPaymentTransactions, self).__init__(**kwargs)
+        super(PaymongoPaymentTransaction, self).__init__(**kwargs)
 
-    def set_date_from_timestamp(self, epoch):
-        self.date_time = dt.utcfromtimestamp(epoch / 1000)
+    def set_datetime_from_timestamp(self, epoch):
+        self.date_time = dt.utcfromtimestamp(epoch)

@@ -2,6 +2,10 @@
   background-color: rgba(25, 22, 22, 0.8);
 }
 
+.trans-black-70 {
+  background-color: rgba(25, 22, 22, 0.7);
+}
+
 .truncate-90 {
     @apply truncate;
     width: calc(90%);

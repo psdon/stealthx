@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+Checkout | Stealth X
+{% endblock %}
+
+{% block content %}
+<div class="min-h-675 min-w-320 fixed z-0 top-0 w-full h-screen bg-brand-blacklight" id="particles"></div>
+
+<div class="flex justify-center mt-10 antialiased">
+    <div class="z-1 relative w-4/5 min-w-280 max-w-524 border sm:border-2 border-brand-red trans-black-70 rounded-3lg sm:rounded-xl">
+        <div class="flex justify-center">
+            <h1 class="py-8 font-oswald text-brand-white text-5xl sm:text-6xl">We Accept</h1>
+        </div>
+
+        <div class="flex justify-center mb-12">
+            <div class="flex justify-center sm:justify-between w-4/5 sm:w-4/6">
+                <img class="h-100 mr-2 sm:h-148" src="{{ webpack_url_for('img/account/checkout/payment_method/others.png') }}">
+                <img class="h-100 ml-2 sm:h-148" src="{{ webpack_url_for('img/account/checkout/payment_method/gcash.png') }}">
+            </div>
+        </div>
+
+        <div class="flex justify-center flex-col w-full">
+            <p class="font-arvo text-center text-brand-white sm:text-lg mx-6 sm:mx-20">
+            We also accept cash payments via 7/11, Coins.ph, Cebuana,  MLhuillier, GCash, etc.
+            </p><br>
+            <p class="font-arvo text-center text-brand-white sm:text-lg mx-6 sm:mx-20 mb-12">
+            For more information, contact us in our official Facebook page. https://fb.com/stealthx.official
+            </p>
+
+        </div>
+
+    </div>
+</div>
+{% endblock content%}
+
+{% set data_view = "particlesOnly" %}

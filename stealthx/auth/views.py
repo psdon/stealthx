@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 
 from stealthx.extensions import db
 from stealthx.models import User, SubscriptionPlan
-from stealthx.constants import SubscriptionTypes
+from stealthx.constants import subscription_plan
 
 from .forms import RecoverForm, ResetPasswordForm, SignInForm, SignUpForm
 from .tokens import verify_email_token
@@ -63,7 +63,6 @@ def sign_up():
 
     form = SignUpForm()
     if form.validate_on_submit():
-        subscription_types = SubscriptionTypes()
 
         new_user = User(
             username=form.username.data,
@@ -73,7 +72,7 @@ def sign_up():
 
         expiration = dt.utcnow() + relativedelta(years=1)
 
-        user_subscription = SubscriptionPlan(user=new_user, type=subscription_types.FREE, expiration=expiration)
+        user_subscription = SubscriptionPlan(user=new_user, type=subscription_plan.FREE.type, expiration=expiration)
 
         db.session.add(new_user)
         db.session.add(user_subscription)
