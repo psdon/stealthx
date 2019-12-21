@@ -6,7 +6,6 @@ import sys
 from flask import Flask, render_template
 from flask_talisman import Talisman
 import sentry_sdk
-from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
 from sentry_sdk.integrations.flask import FlaskIntegration
 
 from stealthx import account, auth, commands, models, public, settings
@@ -85,8 +84,7 @@ def register_extensions(app):
 
         sentry_sdk.init(
             dsn="https://cbf789f8b12f4d5b951ed0a52c6eea11@sentry.io/1863805",
-            integrations=[FlaskIntegration(),
-                          SqlalchemyIntegration()]
+            integrations=[FlaskIntegration()]
         )
 
     return None
