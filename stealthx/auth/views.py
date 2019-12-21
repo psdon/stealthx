@@ -2,6 +2,7 @@
 """User views."""
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
+from sentry_sdk import capture_exception
 from datetime import datetime as dt
 from dateutil.relativedelta import relativedelta
 
@@ -81,8 +82,9 @@ def sign_up():
             send_confirm_email(new_user.email)
             flash("You have signed up successfully. Please check your email", "success")
             return redirect(url_for("auth.sign_in"))
-        except Exception:
+        except Exception as error:
             db.session.rollback()
+            capture_exception(error)
             flash("Oops, an error occurred. Please try again later.", "warning")
 
     return render_template("auth/sign_up/index.html", form=form)
@@ -130,8 +132,9 @@ def confirm_email(token):
                 "You have successfully confirmed your email. You can now sign in.",
                 "success",
             )
-        except Exception:
+        except Exception as error:
             db.session.rollback()
+            capture_exception(error)
             flash("Oops, an error occurred. Please try again later.", "warning")
 
     return redirect(url_for("auth.sign_in"))
@@ -184,7 +187,9 @@ def reset_password(token):
                     "success",
                 )
                 return redirect(url_for("auth.sign_in"))
-            except Exception:
+            except Exception as error:
+                db.session.rollback()
+                capture_exception(error)
                 flash("Oops, an error occurred. Please try again later.", "warning")
         else:
             flash("Oops, an error occurred. Please try again later.", "warning")

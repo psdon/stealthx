@@ -2,6 +2,7 @@ import requests
 from flask import Blueprint, render_template, current_app, redirect, url_for, flash
 from flask_login import login_required, current_user
 import json
+from sentry_sdk import capture_exception
 
 from stealthx.constants import subscription_plan, RSA_PUB_KEY
 from stealthx.extensions import db
@@ -133,6 +134,7 @@ def checkout_card():
         except Exception as error:
             current_app.logger.error(error)
             db.session.rollback()
+            capture_exception(error)
             flash("Server error occurred. Please try again later.", "warning")
             return redirect(url_for('account.checkout_card'))
 
@@ -147,6 +149,7 @@ def checkout_card():
         except Exception as error:
             current_app.logger.error(error)
             db.session.rollback()
+            capture_exception(error)
             flash("Server error occurred. Please try again later.", "warning")
             return redirect(url_for('account.checkout_card'))
 
