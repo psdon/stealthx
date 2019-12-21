@@ -1,8 +1,8 @@
-from Cryptodome import Random
-from Cryptodome.Cipher import PKCS1_OAEP
-from Cryptodome.Hash import SHA512, SHA384, SHA256, SHA, MD5
-from Cryptodome.PublicKey import RSA
-from Cryptodome.Signature import PKCS1_v1_5
+from Crypto import Random
+from Crypto.Cipher import PKCS1_OAEP
+from Crypto.Hash import SHA512, SHA384, SHA256, SHA, MD5
+from Crypto.PublicKey import RSA
+from Crypto.Signature import PKCS1_v1_5
 
 hash = "SHA-256"
 
