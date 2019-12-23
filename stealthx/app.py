@@ -82,10 +82,10 @@ def register_extensions(app):
             content_security_policy_nonce_in=["script-src"],
         )
 
-        sentry_sdk.init(
-            dsn="https://cbf789f8b12f4d5b951ed0a52c6eea11@sentry.io/1863805",
-            integrations=[FlaskIntegration()]
-        )
+        # sentry_sdk.init(
+        #     dsn="https://cbf789f8b12f4d5b951ed0a52c6eea11@sentry.io/1863805",
+        #     integrations=[FlaskIntegration()]
+        # )
 
     return None
 
