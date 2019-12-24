@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """User views."""
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for, current_app
 from flask_login import current_user, login_required, login_user, logout_user
 from sentry_sdk import capture_exception
 from datetime import datetime as dt
@@ -10,7 +10,7 @@ from stealthx.extensions import db
 from stealthx.models import User, SubscriptionPlan
 from stealthx.constants import subscription_plan
 
-from .forms import RecoverForm, ResetPasswordForm, SignInForm, SignUpForm
+from .forms import RecoverForm, ResetPasswordForm, SignInForm, SignUpForm, ChangeEmailForm
 from .tokens import verify_email_token
 from .utils import send_confirm_email, send_recover_account_email
 
@@ -90,16 +90,33 @@ def sign_up():
     return render_template("auth/sign_up/index.html", form=form)
 
 
-@bp.route("/confirm-your-email")
+@bp.route("/confirm-your-email", methods=["GET", "POST"])
 @login_required
 def confirm_your_email():
     """
     Display if user email is not confirmed.
     """
+
     if current_user.email_confirmed:
         return redirect(url_for("account.dashboard"))
 
-    return render_template("auth/email/confirm_your_email.html")
+    form = ChangeEmailForm()
+
+    if form.validate_on_submit():
+        user = User.query.get(current_user.id)
+        user.email = form.email.data
+
+        try:
+            db.session.commit()
+            send_confirm_email(form.email.data)
+        except Exception as error:
+            db.session.rollback()
+            capture_exception(error)
+            flash("Oops, an error occurred. Please try again later.", "warning")
+    else:
+        form.email.data = current_user.email
+
+    return render_template("auth/email/confirm_your_email.html", form=form)
 
 
 @bp.route("/resend-confirm-email")

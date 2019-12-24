@@ -82,3 +82,20 @@ class ResetPasswordForm(FlaskForm):
             EqualTo("password", message="Password does not match"),
         ],
     )
+
+
+class ChangeEmailForm(FlaskForm):
+    email = StringField(
+        "Email",
+        validators=[
+            DataRequired(message="Enter a valid email address"),
+            Email(),
+            Length(min=6, max=40),
+        ],
+    )
+
+    @staticmethod
+    def validate_email(_, field):
+        has_user = User.query.filter_by(email=field.data).first()
+        if has_user:
+            raise ValueError("This email is already registered")
