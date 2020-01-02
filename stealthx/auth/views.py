@@ -126,7 +126,7 @@ def resend_confirm_email():
         return redirect(url_for("account.dashboard"))
 
     send_confirm_email(current_user.email)
-    return render_template("auth/email/confirm_your_email.html",)
+    return redirect(url_for('auth.confirm_your_email'))
 
 
 @bp.route("/confirm/<token>")
