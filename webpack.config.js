@@ -30,7 +30,14 @@ ip_address = addresses[0]
 const debug = (process.env.NODE_ENV !== 'production');
 const hashType = debug ? '[hash]': '[contentHash]'
 const rootAssetPath = path.join(__dirname, 'assets');
-const publicHost = debug ? 'http://' + ip_address + ':2992' : '';
+let publicHost
+
+if (ip_address != undefined) {
+    publicHost = debug ? 'http://' + ip_address + ':2992' : '';
+}
+else {
+    publicHost = debug ? 'http://0.0.0.0:2992' : '';
+}
 
 module.exports = {
   // configuration
