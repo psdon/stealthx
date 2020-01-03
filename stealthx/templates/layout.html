@@ -50,6 +50,10 @@
 <body class="{% block body_class %}min-w-320{% endblock %}">
 {% block body %}
 
+{% if with_sidebar %}
+{% include "sidebar.html" %}
+{% endif %}
+
 {% if not no_nav %}
 {% include "nav.html" %}
 {% endif %}

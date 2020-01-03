@@ -1,7 +1,15 @@
-<nav class="relative z-10 min-h-50 h-6vw bg-brand-blackdark opacity-90 flex items-center ">
+<nav class="relative z-10 min-h-50 h-6vw bg-brand-blackdark opacity-90 flex items-center">
 
-    {% if not logo_only %}
-    <div class="flex-1  "></div>
+    {% if not logo_only and not with_sidebar %}
+    <div class="flex-1"></div>
+    {% endif %}
+
+    {% if with_sidebar %}
+    <div class="flex-1 h-full">
+        <button class="ml-4 focus:outline-none sm:ml-8 h-full inline " id="hamburger">
+            <img class="max-h-24 h-35p sm:h-40p h-full" src="{{ webpack_url_for('svg/global/hamburger.svg') }}" alt="menu">
+        </button>
+    </div>
     {% endif %}
 
     <div class="flex-1 h-full flex items-center justify-center">

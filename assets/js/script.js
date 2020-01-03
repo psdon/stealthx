@@ -5,7 +5,7 @@ export function hasClass(ele, cls) {
 }
 
 export function addClass(ele, cls) {
-    if (!hasClass(ele, cls)) ele.className += " " + cls;
+    if (!hasClass(ele, cls)) ele.className += cls;
 }
 
 export function removeClass(ele, cls) {

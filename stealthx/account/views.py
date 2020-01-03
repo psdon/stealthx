@@ -161,3 +161,8 @@ def checkout_card():
 @bp.route("/checkout/others/")
 def checkout_others():
     return render_template("account/checkout/others/index.html")
+
+
+@bp.route("/settings/")
+def settings():
+    return render_template("account/settings/index.html")

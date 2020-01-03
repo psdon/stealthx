@@ -28,6 +28,7 @@ module.exports = {
       height:{
       //px
       "18": "4.5rem",
+      50: "50px",
       "148": "148px",
       "100": "100px",
 
@@ -46,6 +47,8 @@ module.exports = {
       "62vw": "62vw",
 
       // percentage
+      "35p": "35%",
+      "40p": "40%",
       "60p": "60%",
       "80p": "80%",
       "90p": "90%",
@@ -58,10 +61,13 @@ module.exports = {
       },
       maxHeight: {
       //px
+      24: "1.5rem",
       100: "6.25rem",
       125: "7.813rem",
       },
       width: {
+        220: "220px",
+
         "7vw": "7vw",
         "8vw": "8vw",
         "9vw": "9vw",
