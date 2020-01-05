@@ -66,7 +66,10 @@ module.exports = {
       125: "7.813rem",
       },
       width: {
+        120: "120px",
+        150: "150px",
         220: "220px",
+
 
         "7vw": "7vw",
         "8vw": "8vw",
@@ -79,6 +82,7 @@ module.exports = {
         65: "4.063rem",
         75: "75px",
         80: "80px",
+        150: "150px",
         275: "17.19rem",
         280: "280px",
         300: "300px",
@@ -90,6 +94,7 @@ module.exports = {
         350: "350px",
         450: "450px",
         524: "524px",
+        769: "769px",
       },
       placeholderColor: {
         brand: {
