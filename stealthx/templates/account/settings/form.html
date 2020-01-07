@@ -8,17 +8,38 @@
             </div>
 
             <form method="POST" novalidate >
+                {{ form.csrf_token() }}
 
                 <div class="flex flex-row text-brand-white">
                     <div class="font-arvo text-base sm:text-xl">
-                        <label class="block mt-1 sm:mt-0 mb-8">Username:</label>
-                        <label class="block mb-6">Email:</label>
+                        <label class="block mt-1 sm:mt-0 mb-8 {{ 'pt-8' if form.username.errors }} ">Username:</label>
+                        <label class="block mb-6 {{ 'pt-6' if form.email.errors }}">Email:</label>
                         <label class="block ">Password:</label>
                     </div>
 
                     <div class="ml-1 sm:ml-8 w-full">
-                        <input class="block red-input w-90p max-w-300 sm:max-w-350 mb-4 pr-4">
-                        <input class="block red-input w-90p max-w-300 sm:max-w-350 mb-2 sm:mb-4 ">
+                        {% if form.username.errors %}
+                        <div class="mb-1 rounded-xl bg-brand-red w-90p max-w-300 sm:max-w-350">
+                            <span
+                                    class="truncate-90 block ml-2 font-oswald text-brand-white antialiased"
+                            >{{ form.username.errors[0] }}</span
+                            >
+                        </div>
+                        {% endif %}
+
+                        {{ form.username (class="block red-input w-90p max-w-300 sm:max-w-350 mb-4 pr-4") }}
+
+                        {% if form.email.errors %}
+                        <div class="mb-1 rounded-xl bg-brand-red w-90p max-w-300 sm:max-w-350">
+                            <span
+                                    class="truncate-90 block ml-2 font-oswald text-brand-white antialiased"
+                            >{{ form.email.errors[0] }}</span
+                            >
+                        </div>
+                        {% endif %}
+
+                        {{ form.email (class="block red-input w-90p max-w-300 sm:max-w-350 mb-2 sm:mb-4 ") }}
+
                         <a href="#" class="font-oswald font-light text-xl sm:text-2xl">Change Password</a>
                         <div class="border-b-2 border-brand-red w-120 sm:w-150"></div>
                     </div>

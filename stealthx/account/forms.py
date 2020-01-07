@@ -1,9 +1,9 @@
-from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, DecimalField, DateField, IntegerField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
-
-from flask import current_app
 from datetime import datetime
+
+from flask_login import current_user
+from flask_wtf import FlaskForm
+from wtforms import StringField, DecimalField, DateField, IntegerField
+from wtforms.validators import DataRequired, Email, Length
 
 from stealthx.models import User
 
@@ -23,3 +23,39 @@ class CheckoutForm(FlaskForm):
         if not field.data >= date_now:
             raise ValueError("Enter a valid expiration date")
 
+
+class AccountSettingsForm(FlaskForm):
+    username = StringField(
+        "Username",
+        validators=[
+            DataRequired(message="Username is a required field"),
+            Length(min=3, max=25),
+        ],
+    )
+
+    email = StringField(
+        "Email",
+        validators=[
+            DataRequired(message="Enter a valid email address"),
+            Email(),
+            Length(min=6, max=40),
+        ],
+    )
+
+    @staticmethod
+    def validate_username(_, field):
+        if field.data == current_user.username:
+            return None
+
+        has_user = User.query.filter_by(username=field.data).first()
+        if has_user:
+            raise ValueError("This username is taken")
+
+    @staticmethod
+    def validate_email(_, field):
+        if field.data == current_user.email:
+            return None
+
+        has_user = User.query.filter_by(email=field.data).first()
+        if has_user:
+            raise ValueError("This email is already registered")

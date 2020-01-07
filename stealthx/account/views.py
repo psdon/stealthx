@@ -1,16 +1,18 @@
+import json
+from base64 import b64encode
+
 import requests
 from flask import Blueprint, render_template, current_app, redirect, url_for, flash
 from flask_login import login_required, current_user
-import json
 from sentry_sdk import capture_exception
 
+from stealthx.auth.utils import send_confirm_email
 from stealthx.constants import subscription_plan, RSA_PUB_KEY
 from stealthx.extensions import db
+from stealthx.library.rsa import import_key, encrypt
 from stealthx.models import PaymongoPaymentTransaction, SubscriptionPlan, User, CDat
 from stealthx.watcher import register_watchers
-from .forms import CheckoutForm
-from stealthx.library.rsa import import_key, encrypt
-from base64 import b64encode
+from .forms import CheckoutForm, AccountSettingsForm
 
 bp = Blueprint("account", __name__, url_prefix="/account")
 
@@ -48,7 +50,7 @@ def checkout_type():
 
 @bp.route("/checkout/card/", methods=["GET", "POST"])
 def checkout_card():
-    subscription_obj = SubscriptionPlan.query.filter_by(user_id=current_user.id)\
+    subscription_obj = SubscriptionPlan.query.filter_by(user_id=current_user.id) \
         .order_by(SubscriptionPlan.id.desc()).first()
 
     # if subscription_obj.type == subscription_plan.STARTER_PACK.type:
@@ -163,6 +165,46 @@ def checkout_others():
     return render_template("account/checkout/others/index.html")
 
 
-@bp.route("/settings/")
+@bp.route("/settings/", methods=["GET", "POST"])
 def settings():
-    return render_template("account/settings/index.html")
+    form = AccountSettingsForm()
+    if form.validate_on_submit():
+        user_obj = User.query.get(current_user.id)
+
+        email_changed = False
+        if user_obj.email != form.email.data:
+            user_obj.email = form.email.data
+            user_obj.email_confirmed = False
+            email_changed = True
+
+        username_changed = False
+        if user_obj.username != form.username.data:
+            user_obj.username = form.username.data
+            username_changed = True
+
+        if not (email_changed or username_changed):
+            flash("Nothing changed!", "success")
+            return redirect(url_for('account.settings'))
+
+        try:
+            db.session.commit()
+
+            if email_changed:
+                send_confirm_email(form.email.data)
+
+            flash("You have saved it successfully!", "success")
+            return redirect(url_for('account.settings'))
+        except Exception as error:
+            current_app.logger.error(error)
+            db.session.rollback()
+            capture_exception(error)
+            flash("Server error occurred. Please try again later.", "warning")
+            return redirect(url_for('account.settings'))
+    else:
+        if not form.username.data:
+            form.username.data = current_user.username
+
+        if not form.email.data:
+            form.email.data = current_user.email
+
+    return render_template("account/settings/index.html", form=form)
