@@ -1,0 +1,62 @@
+<div class="flex justify-center mt-10 ">
+    <div class="z-1 relative w-4/5 min-w-280 max-w-350 border sm:border-2 border-brand-red trans-black rounded-xl">
+        <div class="flex justify-center">
+            <h1 class="py-8 font-oswald text-brand-white font-thin text-4xl sm:text-5xl">Change Password</h1>
+        </div>
+
+        <form method="POST" novalidate>
+            {{ form.csrf_token() }}
+
+            <div class="flex flex-col justify-center">
+
+                {% if form.current_password.errors %}
+                <div class="-mb-1 rounded-xl mx-5 bg-brand-red">
+                    <span
+
+                            class="ml-2 font-oswald text-brand-white antialiased"
+                    >{{ form.current_password.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+
+                {{ form.current_password (class="mt-2 mx-4 red-input placeholder-brand-white", placeholder="Current password") }}
+
+
+                {% if form.new_password.errors %}
+                <div class="-mb-2 mt-3 rounded-xl mx-5 bg-brand-red">
+                    <span
+                            class="ml-2 font-oswald text-brand-white antialiased"
+                    >{{ form.new_password.errors[0] }}</span>
+
+                </div>
+                {% endif %}
+
+                {{ form.new_password (class="mt-3 mx-4 red-input placeholder-brand-white", placeholder="New password") }}
+
+
+                {% if form.confirm.errors %}
+                <div class="-mb-2 mt-3 rounded-xl mx-5 bg-brand-red">
+                    <span
+                            class="ml-2 font-oswald text-brand-white antialiased"
+                    >{{ form.confirm.errors[0] }}</span>
+
+                </div>
+                {% endif %}
+
+                {{ form.confirm (class="mt-3 mx-4 red-input placeholder-brand-white", placeholder="Confirm password") }}
+
+
+                <div class="mt-16 mb-6 flex align-center justify-center w-full">
+                    <button
+                            class="transition-w-1s w-3/5 h-20 text-brand-white font-oswald font-light text-3xl border sm:border-2 rounded-xl border-brand-red focus:outline-none"
+                            type="submit"
+                    >
+                        Proceed
+                    </button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

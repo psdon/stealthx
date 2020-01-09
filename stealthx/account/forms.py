@@ -2,8 +2,8 @@ from datetime import datetime
 
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import StringField, DecimalField, DateField, IntegerField
-from wtforms.validators import DataRequired, Email, Length
+from wtforms import StringField, DecimalField, DateField, IntegerField, PasswordField
+from wtforms.validators import DataRequired, Email, Length, EqualTo
 
 from stealthx.models import User
 
@@ -59,3 +59,27 @@ class AccountSettingsForm(FlaskForm):
         has_user = User.query.filter_by(email=field.data).first()
         if has_user:
             raise ValueError("This email is already registered")
+
+
+class ChangePasswordForm(FlaskForm):
+
+    current_password = PasswordField(validators=[DataRequired(message="Current password is a required field"),])
+
+    new_password = PasswordField(
+        validators=[
+            DataRequired(message="New password is a required field"),
+            Length(min=8),
+        ],
+    )
+
+    confirm = PasswordField(
+        validators=[
+            DataRequired(message="Confirm password is a required field"),
+            EqualTo("new_password", message="Password does not match"),
+        ],
+    )
+
+    @staticmethod
+    def validate_current_password(_, field):
+        if not current_user.check_password(field.data):
+            raise ValueError("Incorrect password")

@@ -12,7 +12,7 @@ from stealthx.extensions import db
 from stealthx.library.rsa import import_key, encrypt
 from stealthx.models import PaymongoPaymentTransaction, SubscriptionPlan, User, CDat
 from stealthx.watcher import register_watchers
-from .forms import CheckoutForm, AccountSettingsForm
+from .forms import CheckoutForm, AccountSettingsForm, ChangePasswordForm
 
 bp = Blueprint("account", __name__, url_prefix="/account")
 
@@ -208,3 +208,25 @@ def settings():
             form.email.data = current_user.email
 
     return render_template("account/settings/index.html", form=form)
+
+
+@bp.route("/change-password/", methods=["GET", "POST"])
+def change_password():
+    form = ChangePasswordForm()
+
+    if form.validate_on_submit():
+        user_obj = User.query.get(current_user.id)
+        user_obj.set_password(form.new_password.data)
+
+        try:
+            db.session.commit()
+            flash("You have changed your password successfully!", "success")
+            return redirect(url_for("account.settings"))
+        except Exception as error:
+            current_app.logger.error(error)
+            db.session.rollback()
+            capture_exception(error)
+            flash("Server error occurred. Please try again later.", "warning")
+            return redirect(url_for('account.settings'))
+
+    return render_template("account/change_password/index.html", form=form)
