@@ -230,3 +230,8 @@ def change_password():
             return redirect(url_for('account.settings'))
 
     return render_template("account/change_password/index.html", form=form)
+
+
+@bp.route("/personal-information/", methods=["GET", "POST"])
+def personal_information():
+    return render_template("account/personal_information/index.html")

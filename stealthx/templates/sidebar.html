@@ -13,6 +13,10 @@
             <a href="{{ url_for('account.settings') }}">Account Settings</a>
         </div>
 
+        <div class="pl-3 mb-2 {{ 'border-2 border-brand-red' if sb_personal_information }}">
+            <a href="{{ url_for('account.personal_information') }}">Personal Information</a>
+        </div>
+
         <div class="pl-3 mb-2 {{ 'border-2 border-brand-red' if subscription }}">
             <a href="#">Subscription</a>
         </div>
