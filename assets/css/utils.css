@@ -14,3 +14,8 @@
     @apply truncate;
     width: calc(90%);
 }
+
+.truncate-95 {
+    @apply truncate;
+    width: calc(95%);
+}

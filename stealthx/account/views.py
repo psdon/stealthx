@@ -12,7 +12,7 @@ from stealthx.extensions import db
 from stealthx.library.rsa import import_key, encrypt
 from stealthx.models import PaymongoPaymentTransaction, SubscriptionPlan, User, CDat
 from stealthx.watcher import register_watchers
-from .forms import CheckoutForm, AccountSettingsForm, ChangePasswordForm
+from .forms import CheckoutForm, AccountSettingsForm, ChangePasswordForm, PersonalInformationForm
 
 bp = Blueprint("account", __name__, url_prefix="/account")
 
@@ -234,4 +234,8 @@ def change_password():
 
 @bp.route("/personal-information/", methods=["GET", "POST"])
 def personal_information():
-    return render_template("account/personal_information/index.html")
+    form = PersonalInformationForm()
+    if form.validate_on_submit():
+        pass
+
+    return render_template("account/personal_information/index.html", form=form)
