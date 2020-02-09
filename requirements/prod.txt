@@ -35,7 +35,7 @@ requests==2.22.0
 Flask-Manage-Webpack==1.4.0
 
 # Auth
-Flask-Login==0.4.1
+Flask-Login==0.5.0
 passlib==1.7.2
 flask-talisman== 0.7.0
 
