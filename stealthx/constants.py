@@ -3,11 +3,23 @@ from dotmap import DotMap
 subscription_plan = {
     "FREE": {
         "price": 0,
-        "type": "FREE"
+        "type": "FREE",
+        "token": 100,
     },
-    "STARTER_PACK": {
-        "price": 300,
-        "type": "STARTER_PACK"
+    "ELITE_MEMBER": {
+        "price": 500,
+        "type": "ELITE_MEMBER",
+        "token": 1000,
+    },
+    "GUARDIAN_MEMBER": {
+        "price": 1000,
+        "type": "GUARDIAN_MEMBER",
+        "token": 2000,
+    },
+    "ROYAL_MEMBER": {
+        "price": 2000,
+        "type": "ROYAL_MEMBER",
+        "token": 4000,
     }
 }
 

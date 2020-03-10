@@ -73,7 +73,7 @@ def sign_up():
 
         expiration = dt.utcnow() + relativedelta(years=1)
 
-        user_subscription = SubscriptionPlan(user=new_user, type=subscription_plan.FREE.type, expiration=expiration)
+        user_subscription = SubscriptionPlan(user=new_user, subscription_type_id=1, expiration=expiration)
 
         db.session.add(new_user)
         db.session.add(user_subscription)
@@ -86,6 +86,7 @@ def sign_up():
             db.session.rollback()
             capture_exception(error)
             flash("Oops, an error occurred. Please try again later.", "warning")
+            current_app.logger.debug(error)
 
     return render_template("auth/sign_up/index.html", form=form)
 

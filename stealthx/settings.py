@@ -18,7 +18,7 @@ class BaseConfig:
     SQLALCHEMY_DATABASE_URI = env.str("DATABASE_URL")
     SECRET_KEY = env.str("SECRET_KEY")
     PASSWORD_SALT_KEY = env.str("PASSWORD_SALT_KEY")
-    DEBUG_TB_ENABLED = DEBUG
+    DEBUG_TB_ENABLED = False
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     CACHE_TYPE = "simple"  # Can be "memcached", "redis", etc.
     SQLALCHEMY_TRACK_MODIFICATIONS = False
