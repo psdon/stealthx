@@ -7,7 +7,7 @@ from datetime import datetime as dt
 from dateutil.relativedelta import relativedelta
 
 from stealthx.extensions import db
-from stealthx.models import User, SubscriptionPlan
+from stealthx.models import User, SubscriptionPlan, Core
 from stealthx.constants import subscription_plan
 
 from .forms import RecoverForm, ResetPasswordForm, SignInForm, SignUpForm, ChangeEmailForm
@@ -73,9 +73,15 @@ def sign_up():
 
         expiration = dt.utcnow() + relativedelta(years=1)
 
+        # Rank ID 1 :: Spool III
+        # TODO: free token?
+        user_core = Core(user=new_user, current_rank_id=1, highest_rank_id=1)
+
+        # Subscription Type - ID 1 :: FREE
         user_subscription = SubscriptionPlan(user=new_user, subscription_type_id=1, expiration=expiration)
 
         db.session.add(new_user)
+        db.session.add(user_core)
         db.session.add(user_subscription)
         try:
             db.session.commit()

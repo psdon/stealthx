@@ -10,4 +10,5 @@ class SubscriptionType(db.Model):
     price = db.Column(db.Integer, nullable=False)
 
     subscription_plans = db.relationship("SubscriptionPlan",
-                                         backref="type")
+                                         backref="type",
+                                         cascade='all, delete-orphan',)
