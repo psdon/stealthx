@@ -16,3 +16,5 @@ class PersonalInformation(db.Model):
     city = db.Column(db.String(50), nullable=False)
     zip_code = db.Column(db.Integer, nullable=False)
     country = db.Column(db.String(50), nullable=False)
+
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete='CASCADE'), nullable=False)

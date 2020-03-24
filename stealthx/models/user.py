@@ -52,6 +52,7 @@ class User(UserMixin, SurrogatePK, Model):
     subscriptions = db.relationship('SubscriptionPlan', backref='user', cascade='all, delete-orphan')
     paymongo_transactions = db.relationship("PaymongoPaymentTransaction", backref="user", cascade='all, delete-orphan')
     core = db.relationship("Core", backref="user", cascade='all, delete-orphan', uselist=False)
+    personal_info = db.relationship("PersonalInformation", backref="user", cascade='all, delete-orphan', uselist=False)
 
     def __init__(self, username, email, password=None, **kwargs):
         """Create instance."""

@@ -1,6 +1,8 @@
-from ..extensions import db
 from datetime import datetime as dt
+
 from dateutil.relativedelta import relativedelta
+
+from ..extensions import db
 
 
 class SubscriptionPlan(db.Model):

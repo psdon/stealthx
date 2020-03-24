@@ -11,4 +11,4 @@ class SubscriptionType(db.Model):
 
     subscription_plans = db.relationship("SubscriptionPlan",
                                          backref="type",
-                                         cascade='all, delete-orphan',)
+                                         cascade='all, delete-orphan', )

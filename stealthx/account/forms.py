@@ -76,9 +76,9 @@ class ChangePasswordForm(FlaskForm):
 class PersonalInformationForm(FlaskForm):
     first_name = StringField(validators=[DataRequired(message="Enter your first name"), Length(max=40)])
 
-    middle_name = StringField(validators=[DataRequired(message="Enter your middle name"), Length(max=30)])
+    middle_name = StringField(validators=[Length(max=30)])
     last_name = StringField(validators=[DataRequired(message="Enter your last name"), Length(max=30)])
-    mobile = StringField(validators=[DataRequired(message="Enter your mobile number"), Length(max=20)])
+    mobile_number = StringField(validators=[DataRequired(message="Enter your mobile number"), Length(max=20)])
 
     address_1 = StringField(validators=[DataRequired(message="Enter your house, unit #"), Length(max=50)])
     address_2 = StringField(validators=[DataRequired(message="Enter your street address"), Length(max=50)])

@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 
 from stealthx.watcher import register_watchers
 from .forms import AccountSettingsForm, ChangePasswordForm, PersonalInformationForm
-from .services import update_account_service, change_password_service
+from .services import update_account_service, change_password_service, personal_information_service
 
 bp = Blueprint("account", __name__, url_prefix="/account")
 
@@ -77,6 +77,31 @@ def change_password():
 def personal_information():
     form = PersonalInformationForm()
     if form.validate_on_submit():
-        pass
+        commit_success = personal_information_service(form)
+
+        if commit_success:
+            flash("You have saved it successfully", "success")
+        else:
+            flash("Server error occurred. Please try again later", "warning")
+
+        return redirect(url_for('account.personal_information'))
+    else:
+        try:
+            if current_user.personal_info:
+                data = {
+                    "first_name": current_user.personal_info.first_name,
+                    "middle_name": current_user.personal_info.middle_name,
+                    "last_name": current_user.personal_info.last_name,
+                    "mobile_number": current_user.personal_info.mobile_number,
+                    "address_1": current_user.personal_info.address_1,
+                    "address_2": current_user.personal_info.address_2,
+                    "region": current_user.personal_info.region,
+                    "city": current_user.personal_info.city,
+                    "zip_code": current_user.personal_info.zip_code,
+                    "country": current_user.personal_info.country,
+                }
+                form = PersonalInformationForm(**data)
+        except AttributeError:
+            pass
 
     return render_template("account/personal_information/index.html", form=form)

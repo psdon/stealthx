@@ -41,16 +41,16 @@
 
                {{ form.last_name (class="mt-3 mx-4 sm:mx-12 red-input placeholder-brand-white", placeholder="Last Name", maxLength=30) }}
 
-               {% if form.mobile.errors %}
+               {% if form.mobile_number.errors %}
                 <div class="-mb-2 mt-2 rounded-xl mx-5 sm:mx-12 bg-brand-red">
                     <span
                             class="ml-2 font-oswald text-brand-white antialiased truncate-95 block"
-                    >{{ form.mobile.errors[0] }}</span
+                    >{{ form.mobile_number.errors[0] }}</span
                     >
                 </div>
                 {% endif %}
 
-               {{ form.mobile (class="mt-3 mx-4 sm:mx-12 red-input placeholder-brand-white", placeholder="Mobile Number", maxLength=20) }}
+               {{ form.mobile_number (class="mt-3 mx-4 sm:mx-12 red-input placeholder-brand-white", placeholder="Mobile Number", maxLength=20) }}
 
                {% if form.address_1.errors %}
                 <div class="-mb-2 mt-2 rounded-xl mx-5 sm:mx-12 bg-brand-red">

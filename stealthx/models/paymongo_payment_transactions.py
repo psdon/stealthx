@@ -1,5 +1,6 @@
-from ..extensions import db
 from datetime import datetime as dt
+
+from ..extensions import db
 
 
 class PaymongoPaymentTransaction(db.Model):
