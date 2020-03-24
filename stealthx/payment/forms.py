@@ -1,19 +1,15 @@
 from datetime import datetime
 
-from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import StringField, DecimalField, DateField, IntegerField, PasswordField, SelectField
-from wtforms.validators import DataRequired, Email, Length, EqualTo
-import pycountry
-import phonenumbers
-
-from stealthx.models import User
+from wtforms import StringField, DecimalField, DateField, IntegerField, SelectField
+from wtforms.validators import DataRequired
 
 tokens = [(100, 100), (300, 300), (500, 500), (1000, 1000)]
 
 
 class CheckoutTokenForm(FlaskForm):
-    token = SelectField(default=100, choices=tokens, validators=[DataRequired(message="Enter token amount")], coerce=int)
+    token = SelectField(default=100, choices=tokens, validators=[DataRequired(message="Enter token amount")],
+                        coerce=int)
 
     name = StringField(validators=[DataRequired(message="Enter name on card")])
     number = IntegerField(validators=[DataRequired(message="Enter a valid card number")])

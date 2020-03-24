@@ -1,6 +1,7 @@
-from stealthx.extensions import db
-from sentry_sdk import capture_exception
 from flask import current_app
+from sentry_sdk import capture_exception
+
+from stealthx.extensions import db
 
 
 class BaseDAO:

@@ -1,6 +1,7 @@
 # Database Access Objects
 
 from flask_login import current_user
+
 from .base import BaseDAO
 
 
