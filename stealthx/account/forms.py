@@ -74,18 +74,21 @@ class ChangePasswordForm(FlaskForm):
 
 
 class PersonalInformationForm(FlaskForm):
-    first_name = StringField(validators=[DataRequired(message="Enter your first name")])
-    middle_name = StringField(validators=[DataRequired(message="Enter your middle name")])
-    last_name = StringField(validators=[DataRequired(message="Enter your last name")])
-    mobile = StringField(validators=[DataRequired(message="Enter your mobile number")])
-    address1 = StringField(validators=[DataRequired(message="Enter your house, unit #")])
-    address2 = StringField(validators=[DataRequired(message="Enter your street address")])
-    region = StringField(validators=[DataRequired(message="Enter your province, region or county")])
-    city = StringField(validators=[DataRequired(message="Enter your city address")])
-    zip_code = StringField(validators=[DataRequired(message="Enter your zip code")])
+    first_name = StringField(validators=[DataRequired(message="Enter your first name"), Length(max=40)])
+
+    middle_name = StringField(validators=[DataRequired(message="Enter your middle name"), Length(max=30)])
+    last_name = StringField(validators=[DataRequired(message="Enter your last name"), Length(max=30)])
+    mobile = StringField(validators=[DataRequired(message="Enter your mobile number"), Length(max=20)])
+
+    address_1 = StringField(validators=[DataRequired(message="Enter your house, unit #"), Length(max=50)])
+    address_2 = StringField(validators=[DataRequired(message="Enter your street address"), Length(max=50)])
+
+    region = StringField(validators=[DataRequired(message="Enter your province, region or county"), Length(max=50)])
+    city = StringField(validators=[DataRequired(message="Enter your city address"), Length(max=50)])
+    zip_code = StringField(validators=[DataRequired(message="Enter your zip code"), Length(max=10)])
 
     country = SelectField(default=("Country", "Country"), choices=countries,
-                          validators=[DataRequired(message="Enter your country")])
+                          validators=[DataRequired(message="Enter your country"), Length(max=50)])
 
     @staticmethod
     def validate_country(_, field):

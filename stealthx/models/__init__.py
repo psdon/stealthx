@@ -5,6 +5,7 @@ from .c_dat import CDat
 from .subscription_type import SubscriptionType
 from .core import Core
 from .ranking_system import RankingSystem
+from .personal_information import PersonalInformation
 
 __all__ = ["User",
            "Role",
@@ -13,4 +14,5 @@ __all__ = ["User",
            "PaymongoPaymentTransaction",
            "CDat",
            "Core",
-           "RankingSystem"]
+           "RankingSystem",
+           "PersonalInformation"]
