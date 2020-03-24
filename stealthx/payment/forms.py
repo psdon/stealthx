@@ -27,3 +27,18 @@ class CheckoutTokenForm(FlaskForm):
         if not field.data >= date_now:
             raise ValueError("Enter a valid expiration date")
 
+
+class CheckoutPlanForm(FlaskForm):
+    months_plan = DecimalField(validators=[DataRequired()])
+
+    name = StringField(validators=[DataRequired(message="Enter name on card")])
+    number = IntegerField(validators=[DataRequired(message="Enter a valid card number")])
+    date = DateField(format="%m/%y", validators=[DataRequired(message="Enter valid expiration date")])
+    cvv = IntegerField(validators=[DataRequired(message="Enter a valid CVV")])
+
+    @staticmethod
+    def validate_date(_, field):
+        # Month Year Now... Day = 1
+        date_now = datetime.strptime(datetime.utcnow().date().strftime("%m/%Y"), "%m/%Y").date()
+        if not field.data >= date_now:
+            raise ValueError("Enter a valid expiration date")

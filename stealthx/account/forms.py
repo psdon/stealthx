@@ -1,11 +1,9 @@
-from datetime import datetime
-
+import phonenumbers
+import pycountry
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import StringField, DecimalField, DateField, IntegerField, PasswordField, SelectField
+from wtforms import StringField, PasswordField, SelectField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
-import pycountry
-import phonenumbers
 
 from stealthx.models import User
 
@@ -13,22 +11,6 @@ countries = [("Country", "Country")]
 
 for country in pycountry.countries:
     countries.append((country.name, country.name))
-
-
-class CheckoutPlanForm(FlaskForm):
-    months_plan = DecimalField(validators=[DataRequired()])
-
-    name = StringField(validators=[DataRequired(message="Enter name on card")])
-    number = IntegerField(validators=[DataRequired(message="Enter a valid card number")])
-    date = DateField(format="%m/%y", validators=[DataRequired(message="Enter valid expiration date")])
-    cvv = IntegerField(validators=[DataRequired(message="Enter a valid CVV")])
-
-    @staticmethod
-    def validate_date(_, field):
-        # Month Year Now... Day = 1
-        date_now = datetime.strptime(datetime.utcnow().date().strftime("%m/%Y"), "%m/%Y").date()
-        if not field.data >= date_now:
-            raise ValueError("Enter a valid expiration date")
 
 
 class AccountSettingsForm(FlaskForm):
@@ -69,8 +51,7 @@ class AccountSettingsForm(FlaskForm):
 
 
 class ChangePasswordForm(FlaskForm):
-
-    current_password = PasswordField(validators=[DataRequired(message="Current password is a required field"),])
+    current_password = PasswordField(validators=[DataRequired(message="Current password is a required field"), ])
 
     new_password = PasswordField(
         validators=[
@@ -103,7 +84,8 @@ class PersonalInformationForm(FlaskForm):
     city = StringField(validators=[DataRequired(message="Enter your city address")])
     zip_code = StringField(validators=[DataRequired(message="Enter your zip code")])
 
-    country = SelectField(default=("Country", "Country"), choices=countries, validators=[DataRequired(message="Enter your country")])
+    country = SelectField(default=("Country", "Country"), choices=countries,
+                          validators=[DataRequired(message="Enter your country")])
 
     @staticmethod
     def validate_country(_, field):

@@ -1,16 +1,11 @@
 # -*- coding: utf-8 -*-
 """User views."""
-from flask import Blueprint, flash, redirect, render_template, request, url_for, current_app
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-from sentry_sdk import capture_exception
-from datetime import datetime as dt
-from dateutil.relativedelta import relativedelta
 
-from stealthx.extensions import db
-from stealthx.models import User, SubscriptionPlan, Core
-from stealthx.constants import subscription_plan
-
+from stealthx.models import User
 from .forms import RecoverForm, ResetPasswordForm, SignInForm, SignUpForm, ChangeEmailForm
+from .services import sign_up_service, confirm_your_email_service, confirm_email_service, reset_password_service
 from .tokens import verify_email_token
 from .utils import send_confirm_email, send_recover_account_email
 
@@ -37,7 +32,6 @@ def sign_in():
 
         if user_obj and user_obj.check_password(password):
             login_user(user_obj)
-
         else:
             flash("Incorrect username or password", "warning")
             return render_template("auth/sign_in/index.html", **context)
@@ -64,35 +58,12 @@ def sign_up():
 
     form = SignUpForm()
     if form.validate_on_submit():
+        success_flag = sign_up_service(username=form.username.data,
+                                       email=form.email.data,
+                                       password=form.password.data)
 
-        new_user = User(
-            username=form.username.data,
-            email=form.email.data,
-            password=form.password.data,
-        )
-
-        expiration = dt.utcnow() + relativedelta(years=1)
-
-        # Rank ID 1 :: Spool III
-        # TODO: free token?
-        user_core = Core(user=new_user, current_rank_id=1, highest_rank_id=1)
-
-        # Subscription Type - ID 1 :: FREE
-        user_subscription = SubscriptionPlan(user=new_user, subscription_type_id=1, expiration=expiration)
-
-        db.session.add(new_user)
-        db.session.add(user_core)
-        db.session.add(user_subscription)
-        try:
-            db.session.commit()
-            send_confirm_email(new_user.email)
-            flash("You have signed up successfully. Please check your email", "success")
+        if success_flag:
             return redirect(url_for("auth.sign_in"))
-        except Exception as error:
-            db.session.rollback()
-            capture_exception(error)
-            flash("Oops, an error occurred. Please try again later.", "warning")
-            current_app.logger.debug(error)
 
     return render_template("auth/sign_up/index.html", form=form)
 
@@ -103,23 +74,13 @@ def confirm_your_email():
     """
     Display if user email is not confirmed.
     """
-
     if current_user.email_confirmed:
         return redirect(url_for("account.dashboard"))
 
     form = ChangeEmailForm()
 
     if form.validate_on_submit():
-        user = User.query.get(current_user.id)
-        user.email = form.email.data
-
-        try:
-            db.session.commit()
-            send_confirm_email(form.email.data)
-        except Exception as error:
-            db.session.rollback()
-            capture_exception(error)
-            flash("Oops, an error occurred. Please try again later.", "warning")
+        confirm_your_email_service(email=form.email.data)
     else:
         form.email.data = current_user.email
 
@@ -145,21 +106,8 @@ def confirm_email(token):
     if email is None:
         flash("The confirmation link is invalid or has expired.", "warning")
         return redirect(url_for("auth.sign_in"))
-    user = User.query.filter_by(email=email).first_or_404()
-    if user.email_confirmed:
-        flash("Email already confirmed. Please sign in.", "success")
-    else:
-        user.set_email_confirmed()
-        try:
-            db.session.commit()
-            flash(
-                "You have successfully confirmed your email. You can now sign in.",
-                "success",
-            )
-        except Exception as error:
-            db.session.rollback()
-            capture_exception(error)
-            flash("Oops, an error occurred. Please try again later.", "warning")
+
+    confirm_email_service(email=email)
 
     return redirect(url_for("auth.sign_in"))
 
@@ -200,22 +148,8 @@ def reset_password(token):
 
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=email).first()
+        service_success = reset_password_service(email, password=form.password.data)
 
-        if user:
-            user.set_password(form.password.data)
-            try:
-                db.session.commit()
-                flash(
-                    "You have successfully reset your password. You can now sign in.",
-                    "success",
-                )
-                return redirect(url_for("auth.sign_in"))
-            except Exception as error:
-                db.session.rollback()
-                capture_exception(error)
-                flash("Oops, an error occurred. Please try again later.", "warning")
-        else:
-            flash("Oops, an error occurred. Please try again later.", "warning")
-
+        if service_success:
+            return redirect(url_for("auth.sign_in"))
     return render_template("auth/recover/reset_password.html", form=form)
