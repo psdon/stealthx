@@ -17,6 +17,7 @@ def load_user(user_id):
 login_manager.login_view = "auth.sign_in"
 login_manager.login_message = "Please sign in to access this page"
 login_manager.login_message_category = "warning"
+login_manager.session_protection = "strong"
 
 
 class Role(Model, SurrogatePK):
