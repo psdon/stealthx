@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
 
-from flask import Blueprint, render_template, current_app, redirect, request, json
-
-import hmac
-import hashlib
 import requests
+from flask import Blueprint, render_template, current_app, redirect, request
+
 from stealthx.extensions import csrf_protect
 
 bp = Blueprint("public", __name__, static_folder="../static")
@@ -23,7 +21,6 @@ def home():
 
 @bp.route("/test")
 def test():
-
     url = "https://api.paymongo.com/v1/sources"
 
     payload = {"data":
@@ -38,7 +35,7 @@ def test():
                     }
                }
 
-    resp = requests.post(url, json=payload, auth=(current_app.config.get("PAYMONGO_PUBLIC_KEY"), ""),)
+    resp = requests.post(url, json=payload, auth=(current_app.config.get("PAYMONGO_PUBLIC_KEY"), ""), )
 
     redir_url = resp.json().get('data').get("attributes").get("redirect").get('checkout_url')
 
@@ -82,7 +79,6 @@ def gcash_hook():
     # check_sig = hmac.new(bytes(webhook_secret_key, 'latin-1'), msg=bytes(check_sig, 'latin-1'),
     #                      digestmod=hashlib.sha256).hexdigest().lower()
     # current_app.logger.info(check_sig)
-
 
     # current_app.logger.info(result)
 

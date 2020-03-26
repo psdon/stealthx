@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """User views."""
 from flask import Blueprint, flash, redirect, render_template, request, url_for
-from flask_login import current_user, login_required, login_user, logout_user
+from flask_login import current_user, login_required
 
+from stealthx.library.helper import login, logout
 from stealthx.models import User
 from .forms import RecoverForm, ResetPasswordForm, SignInForm, SignUpForm, ChangeEmailForm
 from .services import sign_up_service, confirm_your_email_service, confirm_email_service, reset_password_service
@@ -31,7 +32,7 @@ def sign_in():
         ).first()
 
         if user_obj and user_obj.check_password(password):
-            login_user(user_obj)
+            login(user_obj)
         else:
             flash("Incorrect username or password", "warning")
             return render_template("auth/sign_in/index.html", **context)
@@ -47,7 +48,7 @@ def sign_in():
 @bp.route("/sign-out/")
 def sign_out():
     """Logout."""
-    logout_user()
+    logout()
     return redirect(url_for("public.home"))
 
 
@@ -100,7 +101,7 @@ def resend_confirm_email():
 @bp.route("/confirm/<token>")
 def confirm_email(token):
     if current_user.is_authenticated:
-        logout_user()
+        logout()
 
     email = verify_email_token(token)
     if email is None:
@@ -144,7 +145,7 @@ def reset_password(token):
         return redirect(url_for("auth.account_recover"))
 
     if current_user.is_authenticated:
-        logout_user()
+        logout()
 
     form = ResetPasswordForm()
     if form.validate_on_submit():

@@ -18,5 +18,8 @@ class CurrentUserDAO(BaseDAO):
     def change_password(self, password):
         self.model.set_password(password)
 
+    def set_session_token(self, token):
+        self.model.session_token = token
+
 
 current_user_dao = CurrentUserDAO(current_user)
