@@ -2,7 +2,6 @@
 """User models."""
 import datetime as dt
 
-from flask import session
 from flask_login import UserMixin
 
 from stealthx.database import Column, Model, SurrogatePK, db
@@ -12,10 +11,7 @@ from stealthx.extensions import login_manager, pwd_context
 @login_manager.user_loader
 def load_user(user_id):
     """Load user by ID."""
-    user_obj = User.query.get(int(user_id))
-    if user_obj:
-        if session['session_token'] == user_obj.session_token:
-            return user_obj
+    return User.query.get(int(user_id))
 
 
 login_manager.login_view = "auth.sign_in"

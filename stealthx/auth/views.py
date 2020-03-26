@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """User views."""
 from flask import Blueprint, flash, redirect, render_template, request, url_for
-from flask_login import current_user, login_required
+from flask_login import current_user
 
-from stealthx.library.helper import login, logout
+from stealthx.library.helper import login, logout, auth_required
 from stealthx.models import User
 from .forms import RecoverForm, ResetPasswordForm, SignInForm, SignUpForm, ChangeEmailForm
 from .services import sign_up_service, confirm_your_email_service, confirm_email_service, reset_password_service
@@ -70,7 +70,7 @@ def sign_up():
 
 
 @bp.route("/confirm-your-email", methods=["GET", "POST"])
-@login_required
+@auth_required
 def confirm_your_email():
     """
     Display if user email is not confirmed.
@@ -89,7 +89,7 @@ def confirm_your_email():
 
 
 @bp.route("/resend-confirm-email")
-@login_required
+@auth_required
 def resend_confirm_email():
     if current_user.email_confirmed:
         return redirect(url_for("account.dashboard"))
