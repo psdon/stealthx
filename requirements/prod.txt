@@ -2,7 +2,7 @@
 
 # Flask
 Flask==1.1.1
-Werkzeug==1.0.0
+Werkzeug==1.0.1
 click>=7.0
 
 # Database
@@ -18,7 +18,7 @@ Flask-Migrate==2.5.3
 Flask-WTF==0.14.3
 WTForms==2.2.1
 pycountry==19.8.18
-phonenumbers==8.12.0
+phonenumbers==8.12.1
 
 # Mail
 Flask-Mail==0.9.1
@@ -30,7 +30,7 @@ supervisor==4.1.0
 sentry-sdk==0.14.3
 
 # Flask Manage Webpack
-Flask-HTMLmin==1.5.2
+Flask-HTMLmin==2.0.0
 requests==2.23.0
 Flask-Manage-Webpack==1.4.1
 
