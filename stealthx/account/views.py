@@ -25,11 +25,6 @@ def dashboard():
     return render_template("account/dashboard/index.html")
 
 
-@bp.route("/pricing/")
-def pricing():
-    return render_template("account/pricing/index.html")
-
-
 @bp.route("/settings/", methods=["GET", "POST"])
 def settings():
     form = AccountSettingsForm()

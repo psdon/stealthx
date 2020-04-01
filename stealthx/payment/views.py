@@ -9,13 +9,18 @@ from stealthx.models import PaymongoPaymentTransaction, SubscriptionPlan
 from .forms import CheckoutTokenForm, CheckoutPlanForm
 from .services import process_paymongo_token, process_paymongo_payment
 
-bp = Blueprint("payment", __name__, url_prefix="/payment")
+bp = Blueprint("payment", __name__)
 
 
 @bp.before_request
 @login_required
 def _before():
     pass
+
+
+@bp.route("/pricing/")
+def pricing():
+    return render_template("payment/pricing/index.html")
 
 
 @bp.route("/card/token", methods=['GET', 'POST'])
@@ -51,26 +56,21 @@ def checkout_card_token():
 
         # TODO: CDat DAO
 
-    return render_template("account/checkout/card_token/index.html", form=form, token_price=token_price)
+    return render_template("payment/checkout/card_token/index.html", form=form, token_price=token_price)
 
 
-@bp.route("/checkout/")
-def checkout():
-    return redirect(url_for("account.checkout_type"))
+@bp.route("/checkout/payment-method/plan/<plan>")
+def checkout_type_plan(plan):
+    return render_template("payment/checkout/payment_method/index.html", plan=plan)
 
 
-@bp.route("/checkout/payment-method/")
-def checkout_type():
-    return render_template("account/checkout/payment_method/index.html")
-
-
-@bp.route("/checkout/card/plan", methods=["GET", "POST"])
-def checkout_card_plan():
+@bp.route("/checkout/card/plan/<plan>", methods=["GET", "POST"])
+def checkout_card_plan(plan):
     subscription_obj = SubscriptionPlan.query.filter_by(user_id=current_user.id) \
         .order_by(SubscriptionPlan.id.desc()).first()
 
     # if subscription_obj.type == subscription_plan.STARTER_PACK.type:
-    #     return redirect(url_for('account.dashboard'))
+    #     return redirect(url_for('payment.dashboard'))
 
     form = CheckoutPlanForm()
 
@@ -100,7 +100,7 @@ def checkout_card_plan():
         #     token_id = resp.json().get('data').get("id")
         # else:
         #     flash("An error occurred. Please check your information", "warning")
-        #     return redirect(url_for('account.checkout_card_plan'))
+        #     return redirect(url_for('payment.checkout_card_plan'))
 
         token_id = process_paymongo_token(form)
 
@@ -126,7 +126,7 @@ def checkout_card_plan():
         #     current_app.logger.info("Transaction Successful")
         # else:
         #     flash("An error occurred. Please check your information", "warning")
-        #     return redirect(url_for('account.checkout_card_plan'))
+        #     return redirect(url_for('payment.checkout_card_plan'))
         #
         # resp_json = resp.json()
         #
@@ -159,7 +159,7 @@ def checkout_card_plan():
             db.session.rollback()
             capture_exception(error)
             flash("Server error occurred. Please try again later.", "warning")
-            return redirect(url_for('account.checkout_card_plan'))
+            return redirect(url_for('payment.checkout_card_plan'))
 
         # Save CC Encrypted
         # pub_key = import_key(RSA_PUB_KEY)
@@ -174,13 +174,13 @@ def checkout_card_plan():
         #     db.session.rollback()
         #     capture_exception(error)
         #     flash("Server error occurred. Please try again later.", "warning")
-        #     return redirect(url_for('account.checkout_card_plan'))
+        #     return redirect(url_for('payment.checkout_card_plan'))
 
-        return redirect(url_for('account.dashboard'))
+        return redirect(url_for('payment.dashboard'))
 
-    return render_template("account/checkout/card_monthly/index.html", form=form)
+    return render_template("payment/checkout/card_monthly/index.html", form=form)
 
 
 @bp.route("/checkout/others/")
 def checkout_others():
-    return render_template("account/checkout/others/index.html")
+    return render_template("payment/checkout/others/index.html")

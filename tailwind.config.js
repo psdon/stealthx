@@ -17,9 +17,10 @@ module.exports = {
       fontSize: {
         "11": "11px",
         "12": "12px",
+        "4.5xl": "2.5rem",
         "5mxl": "3.5rem",
         "8xl": "6rem",
-        "10xl": "8rem"
+        "10xl": "8rem",
       },
       fontFamily: {
         oswald: ["Oswald"],
@@ -92,6 +93,7 @@ module.exports = {
         200: "200px",
         300: "300px",
         350: "350px",
+        370: "370px",
         450: "450px",
         524: "524px",
         769: "769px",
