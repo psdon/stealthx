@@ -40,11 +40,11 @@ def process_paymongo_token(form):
                          auth=(current_app.config.get("PAYMONGO_PUBLIC_KEY"), ""),
                          json=billing_data)
 
-    if resp.status_code == 201:
+    if resp.status_code == 200:
         return resp.json().get('data')["id"]
 
 
-def process_paymongo_payment(amount, token_id, credited_token=None, plan=None):
+def process_paymongo_payment(amount, token_id, plan=None):
     """
     Process Paymongo payment
     :param amount:
@@ -54,42 +54,25 @@ def process_paymongo_payment(amount, token_id, credited_token=None, plan=None):
     :return: Dict, if success
     """
 
-    data = None
-
-    if credited_token:
-        data = {
-            "data": {
-                "attributes": {
-                    "amount": int(f"{amount}00"),
-                    "currency": "PHP",
-                    "description": f"Payment by {current_user.id}::{current_user.username} -- {credited_token} token",
-                    "source": {
-                        "id": str(token_id),
-                        "type": "token"
-                    }
+    data = {
+        "data": {
+            "attributes": {
+                "amount": int(f"{amount}00"),
+                "currency": "PHP",
+                "description": f"Payment by {current_user.id}::{current_user.username} -- {plan}",
+                "source": {
+                    "id": str(token_id),
+                    "type": "token"
                 }
             }
         }
-    elif plan:
-        data = {
-            "data": {
-                "attributes": {
-                    "amount": int(f"{amount}00"),
-                    "currency": "PHP",
-                    "description": f"Payment by {current_user.id}::{current_user.username} -- Plan",
-                    "source": {
-                        "id": str(token_id),
-                        "type": "token"
-                    }
-                }
-            }
-        }
+    }
 
     resp = requests.post("https://api.paymongo.com/v1/payments",
                          auth=(current_app.config.get("PAYMONGO_SECRET_KEY"), ""),
                          json=data)
 
-    if resp.status_code == 201:
+    if resp.status_code == 200:
         resp_json = resp.json()
 
         return {
@@ -98,3 +81,7 @@ def process_paymongo_payment(amount, token_id, credited_token=None, plan=None):
             "amount": resp_json['data']['attributes']['amount'],
             "timestamp": resp_json['data']['attributes']['created_at']
         }
+
+
+def process_paymongo_payment_method(form):
+    pass

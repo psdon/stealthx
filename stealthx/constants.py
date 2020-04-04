@@ -1,29 +1,3 @@
-from dotmap import DotMap
-
-subscription_plan = {
-    "FREE": {
-        "price": 0,
-        "type": "FREE",
-        "token": 100,
-    },
-    "ELITE_MEMBER": {
-        "price": 500,
-        "type": "ELITE_MEMBER",
-        "token": 1000,
-    },
-    "GUARDIAN_MEMBER": {
-        "price": 1000,
-        "type": "GUARDIAN_MEMBER",
-        "token": 2000,
-    },
-    "ROYAL_MEMBER": {
-        "price": 2000,
-        "type": "ROYAL_MEMBER",
-        "token": 4000,
-    }
-}
-
-subscription_plan = DotMap(subscription_plan)
 
 RSA_PUB_KEY = """-----BEGIN PUBLIC KEY-----
 MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAj9WmtKBf0k7A0AQoKD8X

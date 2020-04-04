@@ -9,7 +9,6 @@ from flask import cli
 
 from stealthx.extensions import db
 from stealthx.models import Role, User, SubscriptionPlan, SubscriptionType, Core, RankingSystem
-from stealthx.constants import subscription_plan
 from datetime import datetime as dt
 from dateutil.relativedelta import relativedelta
 
@@ -91,13 +90,37 @@ def init_ranking_system():
     for rank in rankings:
         rank_obj = RankingSystem(id=rank['id'],rank=rank['rank'], min_hp=rank['min_hp'])
         db.session.add(rank_obj)
-        db.session.commit()
+
+    db.session.commit()
+
+
+def init_subscription_types():
+    subs = [{
+        "name": "free",
+        "price": 0
+        },
+        {
+            "name": "guardian",
+            "price": 550
+        },
+        {
+            "name": "free",
+            "price": 975
+        }
+    ]
+
+    for sub in subs:
+        obj = SubscriptionType(name=sub['name'], price=sub['price'])
+        db.session.add(obj)
+
+    db.session.commit()
 
 
 @click.command()
 @cli.with_appcontext
 def init():
     init_ranking_system()
+    init_subscription_types()
 
     click.echo("create user")
 
@@ -114,13 +137,9 @@ def init():
     user = User(username="admin", email="admin@mail.com", password="admin", role=role, core=core)
     user.set_email_confirmed()
 
-    subscription_type = SubscriptionType(name="FREE", token=300, price=0)
-
-    expiration = dt.utcnow() + relativedelta(years=1)
-    user_subscription = SubscriptionPlan(user=user, type=subscription_type, expiration=expiration)
+    user_subscription = SubscriptionPlan(user=user, subscription_type_id=1)
 
     db.session.add(user_subscription)
-    db.session.add(subscription_type)
     db.session.add(user)
     db.session.commit()
     click.echo("created user admin")

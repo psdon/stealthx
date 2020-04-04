@@ -52,7 +52,7 @@ class User(UserMixin, SurrogatePK, Model):
 
     role_id = db.Column(db.Integer, db.ForeignKey("roles.id"), nullable=True)
 
-    subscriptions = db.relationship('SubscriptionPlan', backref='user', cascade='all, delete-orphan')
+    subscription = db.relationship('SubscriptionPlan', backref='user', cascade='all, delete-orphan', uselist=False)
     paymongo_transactions = db.relationship("PaymongoPaymentTransaction", backref="user", cascade='all, delete-orphan')
     core = db.relationship("Core", backref="user", cascade='all, delete-orphan', uselist=False)
     personal_info = db.relationship("PersonalInformation", backref="user", cascade='all, delete-orphan', uselist=False)

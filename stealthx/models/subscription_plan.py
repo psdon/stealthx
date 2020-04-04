@@ -9,7 +9,7 @@ class SubscriptionPlan(db.Model):
     __tablename__ = "subscription_plan"
 
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    expiration = db.Column(db.DateTime, nullable=False)
+    expiration = db.Column(db.DateTime)
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete='CASCADE'), nullable=False)
 

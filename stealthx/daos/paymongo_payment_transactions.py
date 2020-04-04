@@ -13,7 +13,7 @@ class PaymongoPTDAO(BaseDAO):
             - transaction_id
             - currency
             - amount
-            - credited_token
+            - subscription_id
             - user: default current_user
         :return:
         """
