@@ -8,7 +8,7 @@ from flask_talisman import Talisman
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 
-from stealthx import account, auth, commands, models, public, settings, payment
+from stealthx import account, auth, commands, models, public, settings, payment, journey
 from stealthx.extensions import (
     cache,
     csrf_protect,
@@ -96,6 +96,7 @@ def register_blueprints(app):
     app.register_blueprint(auth.views.bp)
     app.register_blueprint(account.views.bp)
     app.register_blueprint(payment.views.bp)
+    app.register_blueprint(journey.views.bp)
     return None
 
 

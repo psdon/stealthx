@@ -19,7 +19,7 @@ def sign_in():
     # TODO: Limit to 20 wrong password attempt per IP. Blocked that IP for a day. Also track by Cookies.
 
     if current_user.is_authenticated:
-        return redirect(url_for("account.dashboard"))
+        return redirect(url_for("journey.your_journey"))
 
     form = SignInForm()
     context = {"form": form, "logo_only": True}
@@ -41,7 +41,7 @@ def sign_in():
         if request.args.get("next"):
             safe_redirect = f"{request.host_url}{request.args.get('next').strip('/')}"
 
-        return redirect(safe_redirect or url_for("account.dashboard"))
+        return redirect(safe_redirect or url_for("journey.your_journey"))
     return render_template("auth/sign_in/index.html", **context)
 
 

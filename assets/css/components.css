@@ -11,3 +11,13 @@
     @apply font-light border-2;
   }
 }
+
+.arrow-down {
+    border: solid;
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 4px;
+
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}

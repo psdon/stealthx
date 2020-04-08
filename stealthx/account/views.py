@@ -20,9 +20,9 @@ def _(response):
     return register_watchers(response)
 
 
-@bp.route("/dashboard/")
-def dashboard():
-    return render_template("account/dashboard/index.html")
+@bp.route("/profile/")
+def profile():
+    return render_template("account/profile/index.html")
 
 
 @bp.route("/settings/", methods=["GET", "POST"])

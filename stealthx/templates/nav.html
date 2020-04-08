@@ -28,7 +28,7 @@
     </div>
     {% elif current_user.is_authenticated and with_dashboard %}
     <div class="flex-1 h-full flex items-center justify-end">
-        <a class="mr-5vw" href="{{ url_for('account.dashboard') }}">
+        <a class="mr-5vw" href="{{ url_for('journey.your_journey') }}">
             <img alt="Dashboard" class="min-w-80 w-9vw" src="{{ webpack_url_for('svg/global/go-to-dashboard.svg') }}">
         </a>
     </div>
