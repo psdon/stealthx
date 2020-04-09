@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+Your Profile | Stealth X
+{% endblock %}
+
+{% block content %}
+<div class="min-h-675 min-w-320 fixed z-0 top-0 w-full h-screen bg-brand-blacklight" id="particles"></div>
+
+<div class="flex justify-center mt-10 ">
+    <div class="z-1 relative w-90p min-w-300 max-w-370 sm:max-w-450 border sm:border-2 border-brand-red trans-black rounded-xl sm:rounded-xl">
+        <h1 class="mt-2 font-oswald text-brand-white text-4xl sm:text-5xl text-center">
+            Subscription
+        </h1>
+
+        <div class="font-oswald text-brand-white ml-12 mt-4">
+            <span class="text-xl sm:text-2xl">Plan:</span>
+            <span class="text-xl sm:text-2xl font-light ml-4">Guardian</span>
+        </div>
+
+        <div class="font-oswald text-brand-white ml-12">
+            <span class="text-xl sm:text-2xl">Price:</span>
+            <span class="text-xl sm:text-2xl font-light ml-2">P750 /month</span>
+        </div>
+
+        <div class="font-oswald text-brand-white ml-12">
+            <span class="text-xl sm:text-2xl">Expiration:</span>
+            <span class="text-xl sm:text-2xl font-light ml-2">January 9, 2020</span>
+        </div>
+
+        <div class="my-8 flex align-center justify-center w-full">
+            <button
+                    class="transition-w-1s w-24 h-10 text-brand-white font-oswald font-light text-xl sm:text-2xl border sm:border-2 rounded-xl border-brand-red focus:outline-none"
+                    type="submit"
+            >
+                Change
+            </button>
+
+            <div class="m-4">
+
+            </div>
+
+            <button
+                    class="transition-w-1s w-24 h-10 text-brand-white font-oswald font-light text-xl sm:text-2xl border sm:border-2 rounded-xl border-brand-red focus:outline-none"
+                    type="submit"
+            >
+                Cancel
+            </button>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% set data_view = "particlesWithSidebar" %}
+{% set with_sidebar = True %}
+{% set sb_subscription = True %}

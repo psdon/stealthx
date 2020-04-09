@@ -101,3 +101,8 @@ def personal_information():
             pass
 
     return render_template("account/personal_information/index.html", form=form)
+
+
+@bp.route("/subscription")
+def subscription():
+    return render_template("account/subscription/index.html")
