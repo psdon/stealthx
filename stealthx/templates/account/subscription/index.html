@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block page_title %}
-Your Profile | Stealth X
+Subscription | Stealth X
 {% endblock %}
 
 {% block content %}
@@ -15,25 +15,24 @@ Your Profile | Stealth X
 
         <div class="font-oswald text-brand-white ml-12 mt-4">
             <span class="text-xl sm:text-2xl">Plan:</span>
-            <span class="text-xl sm:text-2xl font-light ml-4">Guardian</span>
+            <span class="text-xl sm:text-2xl font-light ml-4">{{ current_user.subscription.type.name.title() }}</span>
         </div>
 
         <div class="font-oswald text-brand-white ml-12">
             <span class="text-xl sm:text-2xl">Price:</span>
-            <span class="text-xl sm:text-2xl font-light ml-2">P750 /month</span>
+            <span class="text-xl sm:text-2xl font-light ml-2">P{{ current_user.subscription.type.price }} /month</span>
         </div>
 
         <div class="font-oswald text-brand-white ml-12">
             <span class="text-xl sm:text-2xl">Expiration:</span>
-            <span class="text-xl sm:text-2xl font-light ml-2">January 9, 2020</span>
+            <span class="text-xl sm:text-2xl font-light ml-2">{{ current_user.subscription.expiration }}</span>
         </div>
 
         <div class="my-8 flex align-center justify-center w-full">
             <button
                     class="transition-w-1s w-24 h-10 text-brand-white font-oswald font-light text-xl sm:text-2xl border sm:border-2 rounded-xl border-brand-red focus:outline-none"
-                    type="submit"
             >
-                Change
+                <a href="{{ url_for('payment.pricing') }}">Change</a>
             </button>
 
             <div class="m-4">
