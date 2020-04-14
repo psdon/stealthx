@@ -12,8 +12,8 @@ class PaymongoPaymentTransaction(db.Model):
     amount = db.Column(db.Integer, nullable=False)
     date_time = db.Column(db.DateTime, nullable=False)
 
-    subscription_plan_id = db.Column(db.Integer,
-                                     db.ForeignKey("subscription_plan.id", ondelete='CASCADE'),
+    subscription_type_id = db.Column(db.Integer,
+                                     db.ForeignKey("subscription_type.id", ondelete='CASCADE'),
                                      nullable=True)
 
     user_id = db.Column(db.Integer,

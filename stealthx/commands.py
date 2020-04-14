@@ -104,7 +104,7 @@ def init_subscription_types():
             "price": 550
         },
         {
-            "name": "free",
+            "name": "mania",
             "price": 975
         }
     ]

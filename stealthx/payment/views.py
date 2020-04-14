@@ -1,18 +1,25 @@
+import requests
 from flask import Blueprint, flash, redirect, render_template, url_for, current_app
-from flask_login import login_required
 
 from stealthx.daos import inter_dao
+from stealthx.library.helper import auth_required
 from stealthx.models import SubscriptionType
+from stealthx.watcher import register_watchers
 from .forms import CheckoutPlanForm
 from .services import process_paymongo_token, process_paymongo_payment
-import requests
+
 bp = Blueprint("payment", __name__)
 
 
 @bp.before_request
-@login_required
+@auth_required
 def _before():
     pass
+
+
+@bp.after_request
+def _(response):
+    return register_watchers(response)
 
 
 @bp.route("/pricing/")
@@ -72,7 +79,7 @@ def checkout_card_plan(plan):
 
         # TODO: CDat DAO
 
-        return redirect(url_for('account.dashboard'))
+        return redirect(url_for('account.subscription'))
 
     return render_template("payment/checkout/card_monthly/index.html", form=form)
 
@@ -84,7 +91,6 @@ def checkout_others():
 
 @bp.route("/test-new-payment")
 def test_new_payment():
-
     # Create Payment Intent
     payment_intent_data = {
         "data": {
@@ -107,7 +113,7 @@ def test_new_payment():
     # Create Payment Method
     payment_method_data = {
         "data": {
-            "attributes":{
+            "attributes": {
                 "type": "card",
                 "details": {
                     "card_number": "4120000000000007",

@@ -17,10 +17,8 @@ class SubscriptionPlan(db.Model):
                                      db.ForeignKey("subscription_type.id", ondelete="CASCADE"),
                                      nullable=False)
 
-    paymongo_transaction = db.relationship('PaymongoPaymentTransaction',
-                                           backref='subscription_plan',
-                                           cascade='all, delete-orphan',
-                                           uselist=False)
-
-    def set_expiration(self, add_months):
-        self.expiration = dt.utcnow() + relativedelta(months=add_months)
+    def set_expiration(self, add_months, based_date=None):
+        if based_date is None:
+            self.expiration = dt.utcnow() + relativedelta(months=add_months)
+        else:
+            self.expiration = self.expiration + relativedelta(months=add_months)

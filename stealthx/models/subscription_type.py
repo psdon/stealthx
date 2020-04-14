@@ -11,3 +11,7 @@ class SubscriptionType(db.Model):
     subscription_plans = db.relationship("SubscriptionPlan",
                                          backref="type",
                                          cascade='all, delete-orphan', )
+
+    paymongo_transactions = db.relationship("PaymongoPaymentTransaction",
+                                            backref="subscription_type",
+                                            cascade='all, delete-orphan', )
