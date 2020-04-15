@@ -21,5 +21,10 @@ class CurrentUserDAO(BaseDAO):
     def set_session_token(self, token):
         self.model.session_token = token
 
+    def set_subscription_free(self):
+        self.model.subscription.expiration = None
+        # free
+        self.model.subscription.subscription_type_id = 1
+
 
 current_user_dao = CurrentUserDAO(current_user)

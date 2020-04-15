@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import current_user
 
 from stealthx.library.helper import auth_required
-from stealthx.watcher import register_watchers
+from stealthx.watchers.watcher import register_watchers
 from .forms import AccountSettingsForm, ChangePasswordForm, PersonalInformationForm
 from .services import update_account_service, change_password_service, personal_information_service
 

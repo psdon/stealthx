@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 
 from stealthx.library.helper import auth_required
-from stealthx.watcher import register_watchers
+from stealthx.watchers.watcher import register_watchers
 
 bp = Blueprint("journey", __name__)
 

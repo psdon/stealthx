@@ -4,7 +4,7 @@ from flask import Blueprint, flash, redirect, render_template, url_for, current_
 from stealthx.daos import inter_dao
 from stealthx.library.helper import auth_required
 from stealthx.models import SubscriptionType
-from stealthx.watcher import register_watchers
+from stealthx.watchers.watcher import register_watchers
 from .forms import CheckoutPlanForm
 from .services import process_paymongo_token, process_paymongo_payment
 
