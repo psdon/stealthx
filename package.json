@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/psdon/Flask-Manage-Webpack#readme",
   "dependencies": {
-    "@vimeo/player": "^2.10.0",
+    "@vimeo/player": "^2.11.0",
     "fg-loadcss": "^2.1.0",
     "particles.js": "^2.0.0"
   },
