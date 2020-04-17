@@ -1,5 +1,6 @@
 import requests
 from flask import Blueprint, flash, redirect, render_template, url_for, current_app
+from flask_login import current_user
 
 from stealthx.daos import inter_dao
 from stealthx.library.helper import auth_required
@@ -46,10 +47,16 @@ def checkout_card_plan(plan):
     if not valid_plan:
         return redirect(url_for("payment.pricing"))
 
+    # Check if student
+    if current_user.subscription.is_student:
+        subscription_price = SubscriptionType.query.filter_by(name=plan).first().student_price
+    else:
+        subscription_price = SubscriptionType.query.filter_by(name=plan).first().price
+
     form = CheckoutPlanForm()
 
     if form.validate_on_submit():
-        subscription_price = SubscriptionType.query.filter_by(name=plan).first().price
+
         total_price = form.months_plan.data * subscription_price
 
         token_id = process_paymongo_token(form)
@@ -81,7 +88,7 @@ def checkout_card_plan(plan):
 
         return redirect(url_for('account.subscription'))
 
-    return render_template("payment/checkout/card_monthly/index.html", form=form)
+    return render_template("payment/checkout/card_monthly/index.html", form=form, monthly_price=subscription_price)
 
 
 @bp.route("/checkout/others/")

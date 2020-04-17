@@ -15,12 +15,12 @@ Subscription | Stealth X
 
         <div class="font-oswald text-brand-white ml-12 mt-4">
             <span class="text-xl sm:text-2xl">Plan:</span>
-            <span class="text-xl sm:text-2xl font-light ml-4">{{ current_user.subscription.type.name.title() }}</span>
+            <span class="text-xl sm:text-2xl font-light ml-4">{{ current_user.subscription.type.name.title()+' (student)' if current_user.subscription.is_student else current_user.subscription.type.name.title() }}</span>
         </div>
 
         <div class="font-oswald text-brand-white ml-12">
             <span class="text-xl sm:text-2xl">Price:</span>
-            <span class="text-xl sm:text-2xl font-light ml-2">P{{ current_user.subscription.type.price }} /month</span>
+            <span class="text-xl sm:text-2xl font-light ml-2">P{{ current_user.subscription.type.student_price if current_user.subscription.is_student else current_user.subscription.type.price}} /month</span>
         </div>
 
         <div class="font-oswald text-brand-white ml-12">

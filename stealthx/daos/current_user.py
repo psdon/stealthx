@@ -26,5 +26,13 @@ class CurrentUserDAO(BaseDAO):
         # free
         self.model.subscription.subscription_type_id = 1
 
+    def set_is_student(self, status):
+        self.model.subscription.is_student = status
+
+        if status:
+            self.model.subscription.set_student_renewal_year()
+        else:
+            self.model.subscription.is_student_renewal = None
+
 
 current_user_dao = CurrentUserDAO(current_user)

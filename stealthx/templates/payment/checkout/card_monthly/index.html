@@ -25,3 +25,9 @@ input[type="number"] {
 }
 </style>
 {% endblock %}
+
+{% block js %}
+<script nonce="{{ csp_nonce() if config['ENV'] == 'production' }}">
+window.mP = {{ monthly_price }}
+</script>
+{% endblock %}

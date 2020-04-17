@@ -7,6 +7,7 @@ class SubscriptionType(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(25), nullable=False)
     price = db.Column(db.Integer, nullable=False)
+    student_price = db.Column(db.Integer, nullable=False)
 
     subscription_plans = db.relationship("SubscriptionPlan",
                                          backref="type",

@@ -3,7 +3,7 @@ import invokeParticles from '../module/invokeParticles';
 export default function signIn() {
   invokeParticles('particles');
 
-  const monthlyPrice = 300
+  const monthlyPrice = window.mP
   let total = document.getElementById("total")
 
   let monthsInput = document.getElementById("months_plan")

@@ -97,20 +97,23 @@ def init_ranking_system():
 def init_subscription_types():
     subs = [{
         "name": "free",
-        "price": 0
+        "price": 0,
+        "student_price": 0
         },
         {
             "name": "guardian",
-            "price": 550
+            "price": 550,
+            "student_price": 399
         },
         {
             "name": "mania",
-            "price": 975
+            "price": 975,
+            "student_price": 799
         }
     ]
 
     for sub in subs:
-        obj = SubscriptionType(name=sub['name'], price=sub['price'])
+        obj = SubscriptionType(name=sub['name'], price=sub['price'], student_price=sub['student_price'])
         db.session.add(obj)
 
     db.session.commit()
