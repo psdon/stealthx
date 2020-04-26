@@ -67,5 +67,28 @@
 
         </div>
 
+        <div>
+            <button class="pl-3 mb-2 focus:outline-none text-3xl ">
+                Quest Master
+                <span class="arrow-down border-brand-red mb-1 ml-1"></span>
+            </button>
+
+            <div id="quest-master-drop-down">
+
+                <div class="font-light sm:font-normal sm:pl-8 mb-2 {{ 'border-2 border-brand-red' if sb_profile }}">
+                    <a href="#">
+                        Create Quest
+                    </a>
+                </div>
+
+                <div class="font-light sm:font-normal sm:pl-8 mb-2 {{ 'border-2 border-brand-red' if sb_account_settings }}">
+                    <a href="#">
+                        Manage Quests
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 </aside>
