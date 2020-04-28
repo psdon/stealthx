@@ -50,5 +50,5 @@ environs==7.3.1
 
 # Etc.
 python-dateutil==2.8.1
-dotmap==1.3.13
+dotmap==1.3.14
 pycryptodome==3.9.7
