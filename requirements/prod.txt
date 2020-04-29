@@ -18,7 +18,7 @@ Flask-Migrate==2.5.3
 Flask-WTF==0.14.3
 WTForms==2.3.1
 pycountry==19.8.18
-phonenumbers==8.12.1
+phonenumbers==8.12.2
 
 # Mail
 Flask-Mail==0.9.1
