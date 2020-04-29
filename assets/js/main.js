@@ -35,8 +35,6 @@ if (currentUrl !== redirectTo) {
   }
 }
 
-import('fg-loadcss/src/cssrelpreload.js').catch(() => {});
-
 const view = document.getElementById('main_js').getAttribute('data-view');
 const dataRoutes = [`${view}`];
 

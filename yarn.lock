@@ -2983,10 +2983,6 @@ faye-websocket@~0.11.1:
   dependencies:
     websocket-driver ">=0.5.1"
 
-fg-loadcss@bichinger/loadCSS#extend-engine-requirement:
-  version "3.0.0"
-  resolved "https://codeload.github.com/bichinger/loadCSS/tar.gz/e54033987d2fdbbcdee7a422e8d1a4455d0773e2"
-
 figgy-pudding@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/figgy-pudding/-/figgy-pudding-3.5.1.tgz#862470112901c727a0e495a80744bd5baa1d6790"
