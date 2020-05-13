@@ -5,7 +5,8 @@ module.exports = {
         brand: {
           blacklight: "#231F20",
           blackdark: "#191616",
-          red: "#ec2726"
+          red: "#ec2726",
+          indicator: "#C4C4C4",
         }
       },
       textColor: {

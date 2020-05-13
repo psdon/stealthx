@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
 from stealthx.library.helper import auth_required
 from stealthx.watchers.watcher import register_watchers
 
@@ -18,4 +18,4 @@ def _(response):
 
 @bp.route("/create")
 def create_quest():
-    return "Test"
+    return render_template("quest_master/create_quest/index.html")

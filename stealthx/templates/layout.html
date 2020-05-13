@@ -21,12 +21,12 @@
 
     <link href="{{ webpack_url_for('img/favicon.ico') }}" rel="icon"/>
 
-    <link as="style" href="{{ webpack_url_for('main_css.css') }}" rel="preload">
+    <link as="style" href="{{ webpack_url_for('main_css.css') }}" media="print" rel="stylesheet">
     <noscript>
         <link href="{{ webpack_url_for('main_css.css') }}" rel="stylesheet">
     </noscript>
 
-    <link as="style" href="https://fonts.googleapis.com/css?family=Arvo|Oswald:200,300,400&display=swap" rel="preload">
+    <link as="style" href="https://fonts.googleapis.com/css?family=Arvo|Oswald:200,300,400&display=swap" media="print" rel="stylesheet">
     <noscript>
         <link href="https://fonts.googleapis.com/css?family=Arvo|Oswald:200,300,400&display=swap" rel="stylesheet">
     </noscript>
@@ -38,7 +38,7 @@
         for (let i = 0; i < stylesheetNum; i++) {
             stylesheetObj[i].onload = function() {
                 stylesheetObj[i].onload = null;
-                stylesheetObj[i].rel = 'stylesheet';
+                stylesheetObj[i].media = 'all';
                 }
             }
 
