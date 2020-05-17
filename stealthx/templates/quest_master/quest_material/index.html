@@ -1,0 +1,111 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+Quest Material | Stealth X
+{% endblock %}
+
+{% block content %}
+<div class="min-h-675 min-w-320 fixed z-0 top-0 w-full h-screen bg-brand-blacklight" id="particles"></div>
+
+<div class="flex justify-center mt-4 antialiased">
+    <div class="z-1 relative w-full mx-4 md:w-4/5 max-w-screen-lg border sm:border-2 border-brand-red trans-black rounded-xl flex">
+
+        <div class="px-5 py-2 h-full hidden sm:block sm:border-r-2 border-brand-red">
+            <div class="flex flex-col h-full justify-center items-center">
+                <p class="text-brand-white font-oswald text-xl lg:text-2xl">Spool III</p>
+                <div class="w-32 h-5 border-2 border-brand-red rounded flex  items-center">
+                    <div class="w-2/5 rounded-sm mx-1 h-3 bg-brand-indicator">
+
+                    </div>
+                </div>
+                <p class="text-brand-white font-oswald text-base lg:text-lg">80/900 Hacking Points</p>
+            </div>
+        </div>
+
+        <div class="text-center flex-1 py-4 flex flex-col items-center justify-center">
+            <h1 class="font-oswald text-3xl sm:text-4xl lg:text-5xl text-brand-white -my-2">
+                Create Quest
+            </h1>
+            <p class="font-arvo text-sm sm:text-base lg:text-lg text-brand-white lg:-my-2">Be a quest master</p>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="flex justify-center mt-3 antialiased">
+    <div class="z-1 relative w-full mx-4 md:w-4/5 max-w-screen-lg border sm:border-2 border-brand-red trans-black rounded-xl flex flex-col">
+
+        <form class="" enctype="multipart/form-data" method="POST" novalidate>
+
+            <div class="mx-3 sm:mx-6 my-4 mt-5 font-oswald text-brand-white">
+                <label class="block text-xl sm:text-2xl">Uploaded File:</label>
+                <div class="border sm:border-2 border-brand-red rounded-lg h-10 flex items-center text-base">
+                    <p class="ml-2" id="uploaded-file-name">vm-image-1.ova</p>
+                    <p class="ml-2" id="uploaded-file-size">3.5GB</p>
+                </div>
+
+                <p class="text-xs sm:text-sm font-arvo mt-2 whitespace-pre">( Uploading a file will replace the uploaded
+                    file. )</p>
+            </div>
+
+            <div class="mx-3 sm:mx-6 my-6 font-oswald text-brand-white">
+                <label class="text-xl sm:text-2xl">Type: </label>
+
+                <div class="ml-4 mt-2 sm:inline flex sm:flex-none">
+                    <div class="inline">
+                        <input checked id="vm" name="vm-downloadable-form" type="radio" value="vm">
+                        <label class="pr-3 text-lg" for="vm">VM Image</label>
+                    </div>
+
+                    <div class="inline">
+                        <input class="" id="downloadable-file" name="vm-downloadable-form" type="radio"
+                               value="downloadable-file">
+                        <label class="text-lg" for="downloadable-file">Downloadable File</label>
+                    </div>
+                </div>
+
+
+                <div class="sm:flex sm:items-center mt-2">
+                    <label class="pr-4 text-xl sm:text-2xl">Upload File</label>
+                    <input hidden id="vm-file-upload-input" name="vm-downloadable-form" type="file">
+
+                    <div class="cursor-pointer flex-1 mt-2 text-brand-white border sm:border-2 rounded-lg border-brand-red h-10 focus:outline-none flex items-center whitespace-no-wrap"
+                         id="vm-file-upload-btn">
+                        <label class="px-2 border-r sm:border-r-2 border-brand-red h-full flex items-center justify-center">Choose
+                            File</label>
+                        <label class="mx-2 overflow-hidden" id="vm-file-upload-label"></label>
+                    </div>
+                </div>
+
+                <p class="text-xs sm:text-sm font-arvo mt-2 whitespace-pre" id="type-legend">( Accepted file types:
+                    .ova, .vmdk, .vhd )</p>
+
+                <button class="border sm:border-2 border-brand-red w-24 rounded-lg focus:outline-none text-lg m-4"
+                        name="vm-downloadable-form" type="submit">Upload
+                </button>
+
+                <p class="font-arvo mt-6 text-xs sm:text-sm">Note: VM Image will be hosted to Stealth X platform
+                    automatically, upon approval. Downloadable files will be on the cloud, and make it accessible for
+                    download at the users quest page.</p>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% set data_view = "questMaterial" %}
+{% set with_sidebar = True %}
+{% set sb_create_quest = True %}
+
+{% block js %}
+<script nonce="{{ csp_nonce() if config['ENV'] == 'production' }}">
+    window.xBtnLink = "{{ webpack_url_for('svg/global/x-icon.svg') }}"
+
+</script>
+
+{% endblock js %}

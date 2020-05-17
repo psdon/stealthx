@@ -1,7 +1,7 @@
-<aside id="sidebar" class="hidden fixed z-20 top-0 left-0  overflow-y-auto trans-black-80 h-full w-full sm:w-240 ">
+<aside class="hidden fixed z-20 top-0 left-0  overflow-y-auto trans-black-80 h-full w-full sm:w-240 " id="sidebar">
 
     <button class="mt-2 ml-3 focus:outline-none" id="sb_x_button">
-        <img class="h-50" src="{{ webpack_url_for('svg/global/x-icon.svg') }}" alt="X Icon">
+        <img alt="X Icon" class="h-50" src="{{ webpack_url_for('svg/global/x-icon.svg') }}">
     </button>
 
     <div class="font-oswald text-brand-white text-2xl mt-18 pt-8 text-center sm:text-left">
@@ -11,7 +11,7 @@
                 <span class="arrow-down border-brand-red mb-1 ml-1"></span>
             </button>
 
-            <div id="journey-drop-down" class="">
+            <div class="" id="journey-drop-down">
                 <div class="font-light sm:font-normal sm:pl-8 mb-2 {{ 'border-2 border-brand-red' if sb_your_journey }}">
                     <a href="{{ url_for('journey.your_journey') }}">
                         Your Journey
@@ -76,7 +76,7 @@
             <div id="quest-master-drop-down">
 
                 <div class="font-light sm:font-normal sm:pl-8 mb-2 {{ 'border-2 border-brand-red' if sb_create_quest }}">
-                    <a href="{{ url_for('quest_master.create_quest') }}">
+                    <a href="{{ url_for('quest_master.create_quest_book') }}">
                         Create Quest
                     </a>
                 </div>

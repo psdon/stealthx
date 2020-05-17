@@ -4,7 +4,7 @@
   "description": "Flask with Flask-Manage-Webpack.",
   "scripts": {
     "build": "NODE_ENV=production webpack --progress --colors -p",
-    "start": "concurrently -n \"WEBPACK,FLASK\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run webpack-dev-server\" \"npm run flask-server\"",
+    "start": "concurrently -n \"WEBPACK,FLASK\" -c \"bgBlue.bold,bgMagenta.bold\" \"yarn run webpack-dev-server\" \"yarn run flask-server\"",
     "webpack-dev-server": "NODE_ENV=debug webpack-dev-server --host=0.0.0.0 --port 2992 --hot --inline",
     "flask-server": "python autoreload.py",
     "lint": "eslint \"assets/js/*.js\""

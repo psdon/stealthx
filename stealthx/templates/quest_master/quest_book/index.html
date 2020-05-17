@@ -1,0 +1,203 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+{{ title if title else 'Create Quest' }} | Stealth X
+{% endblock %}
+
+{% block content %}
+<div class="min-h-675 min-w-320 fixed z-0 top-0 w-full h-screen bg-brand-blacklight" id="particles"></div>
+
+<div class="flex justify-center mt-4 antialiased">
+    <div class="z-1 relative w-full mx-4 md:w-4/5 max-w-screen-lg border sm:border-2 border-brand-red trans-black rounded-xl flex">
+
+        <div class="px-5 py-2 h-full hidden sm:block sm:border-r-2 border-brand-red">
+            <div class="flex flex-col h-full justify-center items-center">
+                <p class="text-brand-white font-oswald text-xl lg:text-2xl">Spool III</p>
+                <div class="w-32 h-5 border-2 border-brand-red rounded flex  items-center">
+                    <div class="w-2/5 rounded-sm mx-1 h-3 bg-brand-indicator">
+
+                    </div>
+                </div>
+                <p class="text-brand-white font-oswald text-base lg:text-lg">80/900 Hacking Points</p>
+            </div>
+        </div>
+
+        <div class="text-center flex-1 py-4 flex flex-col items-center justify-center">
+            <h1 class="font-oswald text-3xl sm:text-4xl lg:text-5xl text-brand-white -my-2">
+                Quest Book
+            </h1>
+            <p class="font-arvo text-sm sm:text-base lg:text-lg text-brand-white">Be a quest master</p>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="flex justify-center mt-3 antialiased">
+    <div class="z-1 relative w-full mx-4 md:w-4/5 max-w-screen-lg border sm:border-2 border-brand-red trans-black rounded-xl flex flex-col">
+        <form enctype="multipart/form-data" method="POST" novalidate>
+            {{ form.csrf_token() }}
+
+            <div class="mx-6 sm:mx-12 mt-5 font-oswald text-brand-white">
+                <label class="text-xl sm:text-2xl">Quest Title</label>
+
+                {% if form.quest_title.errors %}
+                <div class="-mb-2 mt-2 rounded-lg bg-brand-red">
+                    <span
+
+                            class="ml-2 font-oswald text-base sm:text-lg text-brand-white antialiased"
+                    >{{ form.quest_title.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+
+                {{ form.quest_title (class="block mt-3 red-input rounded-lg w-full text-xl sm:text-2xl
+                placeholder-brand-white") }}
+            </div>
+
+            <div class="mx-6 sm:mx-12 mt-5 font-oswald text-brand-white">
+                <label class="text-xl sm:text-2xl">Upload Avatar</label>
+
+                {{ form.avatar_hidden (class="hidden")}}
+
+                {% if form.avatar_hidden.errors %}
+                <div class="-mb-2 mt-2 rounded-lg bg-brand-red">
+                    <span
+
+                            class="ml-2 font-oswald text-base sm:text-lg text-brand-white antialiased"
+                    >{{ form.avatar_hidden.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+
+                <div class="mt-3 cursor-pointer block text-brand-white border sm:border-2 rounded-lg border-brand-red w-full h-10 focus:outline-none flex items-center whitespace-no-wrap"
+                     id="avatar-upload-btn">
+                    <label class="px-2 border-r sm:border-r-2 border-brand-red h-full flex items-center justify-center">Choose
+                        File</label>
+                    <label class="mx-2 overflow-hidden" id="avatar-file-label"></label>
+                </div>
+
+
+            </div>
+
+            <div class="mx-6 sm:mx-12 mt-5 font-oswald text-brand-white">
+                <label class="text-2xl">Short Description</label>
+
+                {% if form.short_description.errors %}
+                <div class="-mb-2 mt-2 rounded-lg bg-brand-red">
+                    <span
+
+                            class="ml-2 font-oswald text-base sm:text-lg text-brand-white antialiased"
+                    >{{ form.short_description.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+
+                {{ form.short_description (class="block mt-3 h-18 red-input rounded-lg w-full text-xl sm:text-2xl
+                placeholder-brand-white ") }}
+            </div>
+
+            <div class="mx-6 sm:mx-12 mt-5 font-oswald text-brand-white">
+                <label class="text-xl sm:text-2xl">Description</label>
+
+                {% if form.long_description.errors %}
+                <div class="-mb-2 mt-2 rounded-lg bg-brand-red">
+                    <span
+
+                            class="ml-2 font-oswald text-base sm:text-lg text-brand-white antialiased"
+                    >{{ form.long_description.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+
+                {{ form.long_description (class="block mt-3 h-32 red-input rounded-lg w-full text-xl sm:text-2xl
+                placeholder-brand-white ") }}
+            </div>
+
+            <div class="mx-6 sm:mx-12 mt-5 font-oswald text-brand-white">
+                <label class="text-xl sm:text-2xl">Difficulty</label>
+                {% if form.difficulty.errors %}
+                <div class="-mb-2 mt-2 rounded-lg bg-brand-red">
+                    <span
+
+                            class="ml-2 font-oswald text-base sm:text-lg text-brand-white antialiased"
+                    >{{ form.difficulty.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+                {{ form.difficulty (class="mt-2 border sm:border-2 px-1 text-lg sm:text-xl h-10 rounded-lg w-full
+                border-brand-red placeholder-brand-white bg-brand-blackdark focus:outline-none") }}
+            </div>
+
+            <div class="mx-6 sm:mx-12 mt-5 font-oswald text-brand-white">
+                <label class="text-xl sm:text-2xl">Meta Tags</label>
+
+                {% if form.meta_tags_hidden.errors %}
+                <div class="-mb-2 mt-2 rounded-lg bg-brand-red">
+                    <span
+
+                            class="ml-2 font-oswald text-base sm:text-lg text-brand-white antialiased"
+                    >{{ form.meta_tags_hidden.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+
+                <div class="block mt-3 h-auto red-input px-0 rounded-lg text-xl sm:text-2xl flex items-center flex-wrap"
+                     id="tag-container">
+                    {{ form.meta_tags_hidden (class="hidden") }}
+                    <input class="flex-1 my-2 bg-transparent focus:outline-none text-base placeholder-brand-white ml-4"
+                           id="tag-input" placeholder="Separate by commas">
+                </div>
+            </div>
+
+            <div class="block mx-6 sm:mx-12 mt-8 font-arvo text-brand-white text-base sm:text-lg rounded-lg border sm:border-2 border-brand-red">
+                <div class="border-b sm:border-b-2 border-brand-red flex items-center justify-between">
+                    <p class="p-2 sm:p-4 ml-2 flex-1">Chapter 1: Introduction</p>
+
+                    <div class="p-4 sm:pr-6 flex items-center flex-wrap justify-end">
+                        <a class="border sm:border-2 border-brand-red rounded-lg focus:outline-none w-20 m-1 sm:m-0 sm:mr-4 flex items-center justify-center"
+                           href="#">Edit</a>
+                        <a class="border sm:border-2 border-brand-red rounded-lg focus:outline-none w-20 m-1 sm:m-0 flex items-center justify-center"
+                           href="#">Delete</a>
+                    </div>
+
+                </div>
+
+                <div class="flex justify-center h-32">
+                    <a class="border sm:border-2 border-brand-red rounded-lg w-40 h-10 mt-16 focus:outline-none flex items-center justify-center"
+                       href="#">Create chapter</a>
+                </div>
+            </div>
+
+            <div class="block mx-6 sm:mx-12 mt-8 font-oswald text-brand-white text-base rounded-lg border sm:border-2 border-brand-red flex items-center justify-center h-40">
+                <a class="text-xl rounded-lg border sm:border-2 border-brand-red p-3" href="#">Setup Quest Material</a>
+            </div>
+
+            <div class="font-oswald text-brand-white text-xl sm:text-2xl flex flex-col sm:flex-row items-center justify-center py-16">
+                <button class="border sm:border-2 border-brand-red rounded-lg focus:outline-none px-5 py-2 sm:mr-10 "
+                        name="create-quest-form" type="submit">Save Draft
+                </button>
+                <button class="border sm:border-2 border-brand-red rounded-lg focus:outline-none px-5 py-2 sm:mr-10 mt-6 sm:mt-0">
+                    Preview
+                </button>
+                <button class="border sm:border-2 border-brand-red rounded-lg focus:outline-none px-5 py-2 mt-6 sm:mt-0">
+                    Submit for Review
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% set data_view = "questBook" %}
+{% set with_sidebar = True %}
+
+{% block js %}
+<script nonce="{{ csp_nonce() if config['ENV'] == 'production' }}">
+    window.xBtnLink = "{{ webpack_url_for('svg/global/x-icon.svg') }}"
+    window.avatarFN = "{{ avatar_orig_filename }}"
+
+</script>
+
+{% endblock js %}

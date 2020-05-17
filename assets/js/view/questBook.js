@@ -5,22 +5,12 @@ export default function createQuest() {
     invokeParticleWithSB();
 
     addEventByElementId('avatar-upload-btn', 'click', (e) => {
-        document.getElementById('avatar-upload-input').click();
+        document.getElementById('avatar_hidden').click();
     })
 
-    addEventByElementId('avatar-upload-input', 'change', (e) => {
-        let input = document.getElementById('avatar-upload-input');
+    addEventByElementId('avatar_hidden', 'change', (e) => {
+        let input = document.getElementById('avatar_hidden');
         let label = document.getElementById('avatar-file-label')
-        label.innerHTML = input.files.item(0).name
-    })
-
-    addEventByElementId('vm-file-upload-btn', 'click', (e) => {
-        document.getElementById('vm-file-upload-input').click();
-    })
-
-    addEventByElementId('vm-file-upload-input', 'change', (e) => {
-        let input = document.getElementById('vm-file-upload-input');
-        let label = document.getElementById('vm-file-upload-label')
         label.innerHTML = input.files.item(0).name
     })
 
@@ -30,6 +20,11 @@ var tags = []
 
 const tagContainer = document.getElementById('tag-container')
 const tagInput = document.getElementById('tag-input')
+
+function pushTagsToInput(){
+    let hiddenInput = document.getElementById("meta_tags_hidden")
+    hiddenInput.value = tags
+}
 
 function resetTags(){
     document.querySelectorAll('.tag-id').forEach((tag) => {
@@ -61,6 +56,7 @@ function createTag(label){
         const index = tags.indexOf(label)
         tags = [...tags.slice(0, index), ...tags.slice(index + 1)]
         showTags()
+        pushTagsToInput()
     })
 
     div.appendChild(span)
@@ -76,27 +72,28 @@ tagInput.addEventListener('keyup', (e) => {
         if (tagLabel != ""){
             tags.push(tagLabel)
             showTags()
+            pushTagsToInput()
         }
     }
 })
 
-// Types Radio Buttons
+// Initialized Tags
+let hiddenInput = document.getElementById("meta_tags_hidden")
 
-var typeLegend = document.getElementById('type-legend')
-let vmRadioBtn = document.getElementById('vm')
-let downloadableFileRadioBtn = document.getElementById('downloadable-file')
+if (hiddenInput.value == ""){
+    tags.push("security")
+    showTags()
+    pushTagsToInput()
+}else {
+    tags = hiddenInput.value.split(",")
+    showTags()
+}
 
-vmRadioBtn.addEventListener('change', e => {
-    if (e.target.checked){
-        typeLegend.innerHTML = "( Accepted file types:  .ova,   .vmdk,   .vhd )"
-    }
-})
-
-downloadableFileRadioBtn.addEventListener('change', e => {
-    if (e.target.checked){
-        typeLegend.innerHTML = "( Accepted file types:  Any file )"
-    }
-})
+// Initialized Uploaded filename
+if (window.avatarFN != ""){
+    let label = document.getElementById('avatar-file-label')
+    label.innerHTML = window.avatarFN
+}
 
 
 }
