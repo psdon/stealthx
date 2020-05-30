@@ -27,7 +27,7 @@
     "particles.js": "^2.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.0",
+    "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.0",
     "@fullhuman/postcss-purgecss": "^2.2.0",
     "autoprefixer": "^9.8.0",
