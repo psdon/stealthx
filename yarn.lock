@@ -933,10 +933,10 @@
     "@types/webpack-sources" "*"
     source-map "^0.6.0"
 
-"@vimeo/player@^2.11.0":
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/@vimeo/player/-/player-2.11.0.tgz#668d3af8fb1a36af11ce024851ba10475a47eb6d"
-  integrity sha512-zmxXOI4MRN80QUGp5jwKNGgVH8k/vlwG9M+9ChLqvCmorfo08R/ry3DMgTuZCzRRe95AwUWo+1f0H1v20N3rgQ==
+"@vimeo/player@^2.12.1":
+  version "2.12.1"
+  resolved "https://registry.yarnpkg.com/@vimeo/player/-/player-2.12.1.tgz#e4408363cd2b6a31508e3eeebea3ce2dd65b7156"
+  integrity sha512-C8g9iBDaMmYl0ifmuljk8n/+wieOXQTIHLAdPiV/1Y229f6OqJwDGBgrIlkhMhXEgZB9eoRmsBLsNN4BYInHYg==
   dependencies:
     native-promise-only "0.8.1"
     weakmap-polyfill "2.0.1"
