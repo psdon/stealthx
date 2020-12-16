@@ -31,7 +31,7 @@ sentry-sdk==0.14.4
 
 # Flask Manage Webpack
 Flask-HTMLmin==2.0.0
-requests==2.23.0
+requests==2.25.1
 Flask-Manage-Webpack==1.4.1
 
 # Auth
