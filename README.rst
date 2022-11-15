@@ -2,7 +2,7 @@
 stealthx
 ===============================
 
-    Releasing this personal project to the public domain, and become part of my personal project. Thus *all rights are reserved.*
+    Releasing this personal project to the public domain, and become part of my personal portfolio. Thus *all rights are reserved.*
 
 
 Quickstart
