@@ -1,0 +1,50 @@
+.red-input {
+  @apply h-10 bg-transparent border border-brand-red rounded-xl font-oswald font-thin text-brand-white text-lg antialiased px-3;
+}
+
+.red-input:focus {
+  outline: none;
+}
+
+@screen sm {
+  .red-input {
+    @apply font-light border-2;
+  }
+}
+
+.arrow-down {
+    border: solid;
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 4px;
+
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+/*
+Custom EditorJS
+*/
+
+/*! purgecss start ignore */
+.ce-conversion-tool{
+    @apply text-black
+}
+
+.ce-inline-toolbar__dropdown{
+    @apply text-black
+}
+
+.ce-block__content {
+    @apply max-w-none;
+}
+
+.ce-toolbar__content {
+    @apply max-w-none;
+}
+
+.ce-block--selected .ce-block__content{
+    @apply bg-transparent;
+}
+
+/*! purgecss end ignore */

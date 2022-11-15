@@ -1,0 +1,64 @@
+<div class="flex justify-center mt-10 antialiased">
+    <div class="z-1 relative w-4/5 min-w-280 max-w-769 border sm:border-2 border-brand-red trans-black rounded-xl">
+
+        <div class="flex justify-center sm:block">
+            <div class="ml-4 ml-2 sm:ml-12 sm:mb-12">
+            <div class="">
+                <h1 class="py-8 font-oswald text-brand-white text-4xl sm:text-5xl">Account Settings</h1>
+            </div>
+
+            <form method="POST" novalidate >
+                {{ form.csrf_token() }}
+
+                <div class="flex flex-row text-brand-white">
+                    <div class="font-arvo text-base sm:text-xl">
+                        <label class="block mt-1 sm:mt-0 mb-8 {{ 'pt-8' if form.username.errors }} ">Username:</label>
+                        <label class="block mb-6 {{ 'pt-6' if form.email.errors }}">Email:</label>
+                        <label class="block ">Password:</label>
+                    </div>
+
+                    <div class="ml-1 sm:ml-8 w-full">
+                        {% if form.username.errors %}
+                        <div class="mb-1 rounded-xl bg-brand-red w-90p max-w-300 sm:max-w-350">
+                            <span
+                                    class="truncate-90 block ml-2 font-oswald text-brand-white antialiased"
+                            >{{ form.username.errors[0] }}</span
+                            >
+                        </div>
+                        {% endif %}
+
+                        {{ form.username (class="block red-input w-90p max-w-300 sm:max-w-350 mb-4 pr-4") }}
+
+                        {% if form.email.errors %}
+                        <div class="mb-1 rounded-xl bg-brand-red w-90p max-w-300 sm:max-w-350">
+                            <span
+                                    class="truncate-90 block ml-2 font-oswald text-brand-white antialiased"
+                            >{{ form.email.errors[0] }}</span
+                            >
+                        </div>
+                        {% endif %}
+
+                        {{ form.email (class="block red-input w-90p max-w-300 sm:max-w-350 mb-2 sm:mb-4 ") }}
+
+                        <a href="{{ url_for('account.change_password') }}" class="font-oswald font-light text-xl sm:text-2xl">Change Password</a>
+                        <div class="border-b-2 border-brand-red w-120 sm:w-150"></div>
+                    </div>
+                </div>
+
+                <div class="my-10 flex align-center justify-center w-full">
+                    <button
+                            class="min-w-150 w-1/4 h-18 text-brand-white font-oswald font-light text-4xl border sm:border-2 rounded-xl border-brand-red focus:outline-none"
+                            type="submit"
+                    >
+                        Save
+                    </button>
+
+                </div>
+
+            </form>
+        </div>
+
+        </div>
+
+    </div>
+</div>

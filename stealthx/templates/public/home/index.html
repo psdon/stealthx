@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block body_class %}bg-brand-blacklight{% endblock body_class%}
+
+{% block header %}
+<div class="relative h-screen">
+    {% include "nav.html" %}
+
+    <div class="absolute top-0 z-0 h-90vh h-full w-full" id="particles-1"></div>
+    <div class="absolute top-0 z-0 bg-brand-blacklight w-full h-90vh opacity-60"></div>
+
+    {% include "/public/home/section-1/header.html" %}
+
+    {% include "/public/home/section-1/circle-x.html" %}
+</div>
+{% endblock header %}
+
+
+{% block content %}
+{% include "/public/home/section-2/index.html" %}
+{% include "/public/home/section-3/index.html" %}
+{% endblock content %}
+
+
+{% block css %}
+<style>#video-thumbnail{background-image: url("{{ webpack_url_for("img/home/hack-video-bg.jpg") }}")}</style>
+{% endblock %}
+
+{% set data_view = "home" %}

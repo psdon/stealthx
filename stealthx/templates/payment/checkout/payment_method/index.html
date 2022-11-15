@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+Checkout | Stealth X
+{% endblock %}
+
+{% block content %}
+<div class="min-h-675 min-w-320 fixed z-0 top-0 w-full h-screen bg-brand-blacklight" id="particles"></div>
+
+<div class="flex justify-center mt-10 antialiased">
+    <div class="z-1 relative w-4/5 min-w-280 max-w-524 border sm:border-2 border-brand-red trans-black-70 rounded-3lg sm:rounded-xl">
+        <div class="flex justify-center">
+            <h1 class="py-8 font-oswald text-brand-white text-4xl sm:text-5xl">Payment Method</h1>
+        </div>
+
+        <div class="text-brand-white flex justify-center antialiased">
+            <div class="border sm:border-2 border-brand-red h-18 sm:h-auto bg-brand-blackdark w-3/4 rounded-2lg sm:rounded-3lg px-2 sm:px-3">
+                <a href="{{ url_for('payment.checkout_card_plan', plan=plan ) }}">
+                    <div class="flex flex-row items-center h-full">
+                        <img class="h-90p" src="{{ webpack_url_for('img/payment/checkout/payment_method/card_type.png') }}" alt="Visa|Mastercard">
+                        <div class="flex justify-center w-full">
+                            <span class="text-center font-arvo font-bold text-lg sm:text-2xl">Credit/Debit Card</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="py-6 mb-24 text-brand-white flex justify-center antialiased">
+            <div class="border sm:border-2 border-brand-red h-18 sm:h-auto bg-brand-blackdark w-3/4 rounded-2lg sm:rounded-3lg px-2">
+                <a href="{{ url_for('payment.checkout_others') }}">
+                    <div class="flex flex-row items-center h-full">
+                        <img class="h-80p" src="{{ webpack_url_for('img/payment/checkout/payment_method/others.png') }}" alt="Visa|Mastercard">
+                        <div class="flex justify-center w-full">
+                            <span class="text-center font-arvo font-bold text-xl sm:text-3xl">Others</span>
+                        </div>
+                        <img class="h-80p" src="{{ webpack_url_for('img/payment/checkout/payment_method/gcash.png') }}" alt="Visa|Mastercard">
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+{% endblock content%}
+
+{% set data_view = "particlesOnly" %}

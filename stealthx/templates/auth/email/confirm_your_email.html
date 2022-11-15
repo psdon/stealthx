@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+<div class="relative z-10 flex justify-center">
+    <div class="text-center bg-brand-blackdark mt-1 py-4 sm:px-4 border sm:border-2 border-brand-red rounded-lg mx-2 font-arvo text-xs text-brand-white sm:text-white sm:text-base">
+        <p class="">
+            We have sent you an email, please check your email and confirm.
+            <a href="{{ url_for('auth.resend_confirm_email') }}">
+                Click here to <span class="underline">resend email.</span>
+            </a>
+        </p>
+
+        <div class="flex justify-center w-full mt-12">
+            <form method="POST" novalidate class="w-full">
+                {{ form.csrf_token() }}
+
+
+                <div class="flex flex-row items-center justify-center w-full">
+
+                    <div>
+                        {% if form.email.errors %}
+                        <div>&nbsp;</div>
+                        {% endif %}
+
+                        <span class="mr-4 text-base sm:text-lg">Email:</span>
+                    </div>
+
+                    <div class="flex flex-col w-3/4 max-w-300">
+
+                        {% if form.email.errors %}
+                        <div class="mb-2 rounded-xl bg-brand-red w-full">
+                            <div
+                                    class="text-left ml-2 font-oswald text-base text-brand-white antialiased"
+                            >{{ form.email.errors[0] }}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {{ form.email (class="red-input w-full text-brand-white", type="email") }}
+                    </div>
+
+                </div>
+
+                <div class="mt-12 mb-8 flex align-center justify-center w-full">
+                    <button
+                            class="transition-w-1s w-1/2 max-w-200 h-16 text-brand-white font-oswald font-light text-3xl border sm:border-2 rounded-xl border-brand-red focus:outline-none"
+                            type="submit"
+                    >
+                        Change
+                    </button>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block body_class %}
+min-w-320 bg-brand-blacklight
+{% endblock %}

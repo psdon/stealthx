@@ -1,0 +1,187 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+{{ title if title else 'Create Quest' }} | Stealth X
+{% endblock %}
+
+{% block content %}
+<div class="min-h-675 min-w-320 fixed z-0 top-0 w-full h-screen bg-brand-blacklight" id="particles"></div>
+
+<div class="flex justify-center mt-4 antialiased">
+    <div class="z-1 relative w-full mx-4 md:w-4/5 max-w-screen-lg border sm:border-2 border-brand-red trans-black rounded-xl flex">
+
+        <div class="px-5 py-2 h-full hidden sm:block sm:border-r-2 border-brand-red">
+            <div class="flex flex-col h-full justify-center items-center">
+                <p class="text-brand-white font-oswald text-xl lg:text-2xl">Spool III</p>
+                <div class="w-32 h-5 border-2 border-brand-red rounded flex  items-center">
+                    <div class="w-2/5 rounded-sm mx-1 h-3 bg-brand-indicator">
+
+                    </div>
+                </div>
+                <p class="text-brand-white font-oswald text-base lg:text-lg">80/900 Hacking Points</p>
+            </div>
+        </div>
+
+        <div class="text-center flex-1 py-4 flex flex-col items-center justify-center">
+            <h1 class="font-oswald text-3xl sm:text-4xl lg:text-5xl text-brand-white -my-2">
+                Quest Chapter
+            </h1>
+            <p class="font-arvo text-sm sm:text-base lg:text-lg text-brand-white">Be a quest master</p>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="flex justify-center mt-3 antialiased">
+    <div class="z-1 relative w-full mx-4 md:w-4/5 max-w-screen-lg border sm:border-2 border-brand-red trans-black rounded-xl flex flex-col">
+        <h1 class="font-oswald text-brand-white text-center text-4xl mt-2">Chapter {{ chapter_num }}</h1>
+
+        <form enctype="multipart/form-data" method="POST" novalidate>
+            {{ form.csrf_token() }}
+            <div class="mx-6 sm:mx-12 font-oswald text-brand-white">
+                <label class="text-xl sm:text-2xl">Chapter Title</label>
+
+                {% if form.chapter_title.errors %}
+                <div class="-mb-2 mt-2 rounded-lg bg-brand-red">
+                    <span
+
+                            class="ml-2 font-oswald text-base sm:text-lg text-brand-white antialiased"
+                    >{{ form.chapter_title.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+
+                {{ form.chapter_title (class="block mt-3 red-input rounded-lg w-full text-xl sm:text-2xl
+                placeholder-brand-white") }}
+            </div>
+
+            <div class="mx-6 sm:mx-12 mt-5 font-oswald text-brand-white">
+                <label class="text-xl sm:text-2xl">Upload Video</label>
+
+                {% if form.video_hidden.errors %}
+                <div class="-mb-2 mt-2 rounded-lg bg-brand-red">
+                    <span
+
+                            class="ml-2 font-oswald text-base sm:text-lg text-brand-white antialiased"
+                    >{{ form.video_hidden.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+
+                {{ form.video_hidden (class="hidden") }}
+
+                <div class="mt-3 cursor-pointer block text-brand-white border sm:border-2 rounded-lg border-brand-red w-full h-10 focus:outline-none flex items-center whitespace-no-wrap"
+                         id="upload_video_btn">
+                    <label class="px-2 cursor-pointer border-r sm:border-r-2 border-brand-red h-full flex items-center justify-center">Choose
+                        File</label>
+                        <label class="mx-2 cursor-pointer overflow-hidden" id="upload_video_label"></label>
+                </div>
+
+
+            </div>
+
+            <div class="mx-6 sm:mx-12 mt-5 ">
+                <label class="text-xl sm:text-2xl font-oswald text-brand-white">Description</label>
+
+                {% if form.description_hidden.errors %}
+                <div class="-mb-2 mt-2 rounded-lg bg-brand-red">
+                    <span
+
+                            class="ml-2 font-oswald text-base sm:text-lg text-brand-white antialiased"
+                    >{{ form.description_hidden.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+
+                {{ form.description_hidden (class="hidden") }}
+                <div class="block mt-3 w-full border sm:border-2 border-brand-red antialiased px-1 rounded-lg w-full font-oswald text-brand-white" id="description"></div>
+            </div>
+
+            <div class="mx-6 sm:mx-12 mt-5 border sm:border-2 border-brand-red text-brand-white text-base rounded-lg px-3">
+
+                {% for quest in form.quests %}
+                <div class="mb-8" data-type="quest-form-fields" id="quests-0-container">
+                    <div class="mt-2 flex items-center justify-between">
+                        <label id="quests-{{ loop.index - 1}}-label">Quest {{ loop.index}}:</label>
+                        <img id="quests-{{ loop.index - 1}}-x-btn" class="h-8 cursor-pointer" src="{{ webpack_url_for('svg/global/x-icon.svg') }}">
+                    </div>
+
+                    {% if quest.quest.errors %}
+                    <div class="mb-1 rounded-lg bg-brand-red">
+                        <span
+
+                                class="ml-2 font-oswald text-base text-brand-white antialiased"
+                        >{{ quest.quest.errors[0] }}</span
+                        >
+                    </div>
+                    {% endif %}
+
+                    {{ quest.quest (class="block red-input rounded-lg w-full text-base font-arvo px-2 placeholder-brand-white") }}
+
+                    <div class="mt-2">
+                        <label>Answer:</label>
+
+                        {% if quest.answer.errors %}
+                        <div class="mb-1 rounded-lg bg-brand-red">
+                            <span
+
+                                    class="ml-2 font-oswald text-base text-brand-white antialiased"
+                            >{{ quest.answer.errors[0] }}</span
+                            >
+                        </div>
+                        {% endif %}
+
+                        {{ quest.answer (class="block red-input rounded-lg w-full text-base font-arvo px-2 placeholder-brand-white") }}
+                    </div>
+                </div>
+                {% endfor %}
+
+
+                <div class="flex items-center justify-center h-24">
+                    <div class="border sm:border-2 rounded-lg border-brand-red py-1 px-6 text-base sm:text-xl focus:outline-none cursor-pointer" id="add-quest">
+                        Add
+                    </div>
+                </div>
+            </div>
+
+            {% if chapter_num and book_code %}
+                {% if not quest_chapter_obj.vault %}
+                <div class="mx-6 sm:mx-12 mt-10  flex justify-center items-center h-56 border sm:border-2 border-brand-red rounded-lg font-oswald text-brand-white">
+                    <a class="text-xl sm:text-2xl rounded-lg border sm:border-2 border-brand-red py-3 px-4" href="{{ url_for('quest_master.create_quest_chapter_vault', quest_book_code=book_code, quest_chapter_num=chapter_num) }}">Setup Vault</a>
+                </div>
+                {% else %}
+                    <div class="mx-6 sm:mx-12 mt-10  flex justify-center items-center h-56 border sm:border-2 border-brand-red rounded-lg font-oswald text-brand-white">
+                        <a class="text-xl sm:text-2xl rounded-lg border sm:border-2 border-brand-red py-3 px-4" href="{{ url_for('quest_master.edit_quest_chapter_vault', quest_book_code=book_code, quest_chapter_num=chapter_num) }}">Edit Vault</a>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            <div class="flex justify-center items-center h-32 font-oswald text-brand-white flex flex-col sm:flex-row items-center justify-center">
+                 <button class="border sm:border-2 rounded-lg border-brand-red py-1 w-24 text-xl focus:outline-none sm:mr-5" type="button" id="save">
+                        Save
+                </button>
+
+                <a class="cursor-pointer text-center border sm:border-2 rounded-lg border-brand-red py-1 w-48 text-xl mt-4 sm:mt-0"
+                   href="{{ url_for('quest_master.edit_quest_book', quest_book_code=book_code) }}">
+                        Back to Quest Book
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% set data_view = "questChapter" %}
+{% set with_sidebar = True %}
+
+{% block js %}
+<script nonce="{{ csp_nonce() if config['ENV'] == 'production' }}">
+    window.videoFN = "{{ video_orig_filename }}"
+    window.byf = "{{ upload_by_file }}"
+    window.byu = "{{ upload_by_url }}"
+    window.csrfToken = "{{ csrf_token() }}"
+</script>
+
+{% endblock js %}

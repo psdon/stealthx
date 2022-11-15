@@ -1,0 +1,93 @@
+<div class="flex justify-center mt-10 antialiased">
+    <div class="z-1 relative w-4/5 min-w-280 max-w-350 border sm:border-2 border-brand-red trans-black rounded-xl">
+        <div class="flex justify-center">
+            <h1 class="py-8 font-oswald text-brand-white text-5xl">Checkout</h1>
+        </div>
+
+        <form method="POST" novalidate >
+            {{ form.csrf_token() }}
+            <div class="px-8 sm:text-lg">
+                <div>
+                    {% if form.months_plan.errors %}
+                    <div class="rounded-xl mb-1 bg-brand-red">
+                        <span
+
+                                class="ml-3 font-oswald text-brand-white antialiased"
+                        >Months is a required field</span
+                        >
+                    </div>
+                    {% endif %}
+
+                    <label class="text-brand-white font-arvo">Plan:</label>
+                    <span class="ml-4">
+                        {{ form.months_plan (class="outline-none w-10 border border-brand-red rounded-xl bg-transparent text-brand-white text-center", type="number") }}
+                        <span class="text-brand-white font-arvo">month(s)</span>
+                    </span>
+                </div>
+
+                <span class="text-brand-white font-arvo">Total:</span>
+                <span id="total" class="ml-4 text-brand-white font-arvo">₱{{monthly_price}} PHP</span>
+            </div>
+
+            <div class="flex flex-col justify-center">
+                {% if form.name.errors %}
+                <div class="-mb-2 mt-3 rounded-xl mx-5 bg-brand-red">
+                    <span
+                            class="ml-2 font-oswald text-brand-white antialiased"
+                    >{{ form.name.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+
+                {{ form.name (class="mt-3 mx-4 red-input placeholder-brand-white", placeholder="Name on Card") }}
+
+                {% if form.number.errors %}
+                <div class="-mb-2 mt-3 rounded-xl mx-5 bg-brand-red">
+                    <span
+                            class="ml-2 font-oswald text-brand-white antialiased"
+                    >{{ form.number.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+
+                {{ form.number (class="mt-3 mx-4 red-input placeholder-brand-white", placeholder="Card Number", type="number") }}
+
+                {% if form.date.errors %}
+                <div class="-mb-2 mt-3 rounded-xl mx-5 bg-brand-red">
+                    <span
+                            class="ml-2 font-oswald text-brand-white antialiased"
+                    >{{ form.date.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+
+                {{ form.date (class="mt-3 mx-4 red-input placeholder-brand-white", placeholder="MM/YY") }}
+
+                {% if form.cvv.errors %}
+                <div class="-mb-2 mt-3 rounded-xl mx-5 bg-brand-red">
+                    <span
+                            class="ml-2 font-oswald text-brand-white antialiased"
+                    >{{ form.cvv.errors[0] }}</span
+                    >
+                </div>
+                {% endif %}
+
+                {{ form.cvv (class="mt-3 mx-4 red-input placeholder-brand-white", placeholder="CVV", type="number") }}
+
+
+                <div class="my-10 flex align-center justify-center w-full">
+                    <button
+                            class="transition-w-1s w-3/5 h-20 text-brand-white font-oswald font-light text-3xl border sm:border-2 rounded-xl border-brand-red focus:outline-none"
+                            type="submit"
+                    >
+                        Proceed
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>

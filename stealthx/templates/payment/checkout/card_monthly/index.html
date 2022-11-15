@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+Checkout | Stealth X
+{% endblock %}
+
+{% block content %}
+<div class="min-h-675 min-w-320 fixed z-0 top-0 w-full h-screen bg-brand-blacklight" id="particles"></div>
+
+{% include "payment/checkout/card_monthly/form.html" %}
+
+{% endblock content%}
+
+{% set data_view = "checkoutCard" %}
+
+{% block css %}
+<style>
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+</style>
+{% endblock %}
+
+{% block js %}
+<script nonce="{{ csp_nonce() if config['ENV'] == 'production' }}">
+window.mP = {{ monthly_price }}
+</script>
+{% endblock %}
